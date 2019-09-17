@@ -19,11 +19,11 @@
             "port": 9000
         },
         {
-            "name": "Listen for XDebug on Vagrant/Laravel",
+            "name": "Listen for XDebug on The Trip to [  ]",
             "type": "php",
             "request": "launch",
             "pathMappings": {
-                "/home/vagrant/laravel/test_shop": "${workspaceFolder}"
+                "/home/vagrant/code/thetripto": "${workspaceFolder}"
             },
             "port": 9000
         }
