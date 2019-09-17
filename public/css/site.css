@@ -1,0 +1,243 @@
+/* global style */
+
+html, body {margin: 0; padding: 0; overflow-x:hidden;}
+label, p, a, a:hover{
+    color: #232931;
+    text-decoration: none;
+    border: 0px;
+}
+
+.btn:hover{
+    color: white;
+}
+.button-light
+{
+    background-color: #ffb400;
+    color: white;
+    border: 0px;
+}
+.button-dark
+{
+    background-color: #232931;
+    color: white;
+    border: 0px;
+}
+.border{
+    border: 1px solid #2329318c!important;
+}
+hr{
+ background-color: #2329318c
+}
+.form-control{
+    color: #232931;
+    border: 1px solid #2329318c;
+}
+/* .text-inverse{
+    color: white;
+} */
+
+.title {
+    font-size: 2rem;
+    font-weight: 800;
+}
+.sub-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    /* letter-spacing: 0.125rem; */
+}
+p {
+    /* font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 1rem; */
+}
+.info {
+    font-size: 0.75rem;
+    font-weight: 400;
+    /* letter-spacing: 1rem; */
+}
+
+
+/* nav bar */
+nav .search {
+    z-index: 10;
+}
+nav .search>.input-group>input {
+    width: 30vw;
+    height: 40px;
+}
+
+nav .search>.input-group button {
+    background-color: #ffb400;
+    height: 40px;
+    align-items: center;
+}
+
+/* modal style */
+.modal button:not(.close){
+    background-color: #232931;
+    border-color: #232931;
+    color: white;
+}
+
+/* index page style */
+.carousel-item {
+    margin: -364px 0px -364px 0px;
+}
+
+.carousel-caption {
+    margin-bottom: 150px;
+    padding: 0;
+    font-weight: 600;
+}
+
+.carousel .search {
+    background-color: #232931;
+    position: absolute !important;
+    height: 144px;
+    bottom: -72px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* margin: 0 auto; */
+    z-index: 10 !important;
+}
+
+.carousel .search>.input-group {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel .search>.input-group>input {
+    height: 60px;
+}
+
+.carousel .search>.input-group button {
+    background-color: #ffb400;
+    height: 60px;
+    align-items: center;
+}
+#search-result>li{
+    margin-left: 1rem;
+}
+
+.caption {
+    margin-top: 140px;
+    margin-bottom: 85px;
+}
+
+.caption>h1 {
+    color: #232931;
+    font-weight: 800;
+    letter-spacing: 1.5rem;
+}
+
+.popular-spot .title,
+.popular-country .title,
+.classic-tour .title {
+    /* color: #232931; */
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.popular-country .country {
+    display: inline-block;
+    height: 337px;
+    line-height: 337px;
+    background-color: #232931;
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+    letter-spacing: 0.75rem;
+    flex-basis: 30% !important;
+    margin: 10rem 0 0 0;
+}
+
+.popular-country {
+    margin: 10rem 0 10rem 0;
+}
+
+.classic-tour {
+    margin: 10rem 0 10rem 0;
+}
+
+/*tour page style*/
+.sticky {
+    position: fixed;
+    top: 0;
+    right: calc(30px);
+    /* left: calc(66.6666% - 60*0.6666px + 30px); */
+    /* flex: 0 0 33.333333%; */
+    max-width: calc(33.3333% - 60*0.3333px - 5px);
+  }
+/*user page style*/
+#user-control-items{
+    width: 61%!important;
+    border:1px solid #232931;
+}
+#user-control-items a{
+    position: relative;
+    width: 100%;
+    display: block;
+    padding: .75rem 1.25rem;
+    /* margin-bottom: -1px; */
+    background-color: #fff;
+    color: #232931;
+    text-decoration: none;
+}
+
+#user-control-items a:before {
+    content : "";
+    position: absolute;
+    /* height  : 1px; */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    /* border-bottom:1px solid rgba(0,0,0,.2); */
+  }
+
+#user-control-items .active{
+    color: #ffb400;
+}
+
+#user-control-items .active:before {
+    content : "";
+    position: absolute;
+    /* height  : 1px; */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    border-bottom:5px solid #ffb400;
+  }
+
+/* #my-booking{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+#my-wish{
+    margin-left: 15px;
+    margin-right: 15px;
+} */
+/*test*/
+.box1{
+    background-color: gainsboro;
+}
+
+.box2{
+    background-color: rgb(0, 100, 0);
+}
+.box3{
+    background-color: rgb(0, 180, 0);
+}
+.box4{
+    background-color: rgb(0, 255, 0);
+}
+.box5{
+    background-color: rgb(100, 0, 0);
+}
+.box6{
+    background-color: rgb(180, 0, 220);
+}
+.box7{
+    background-color: rgb(255, 0, 220);
+}
