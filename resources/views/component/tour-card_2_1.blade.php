@@ -1,11 +1,11 @@
 <div class="tour-card h-100" style="border-width:0 0 10px 0;border-style:solid; border-color:#232931;">
-    <a href="/tour/{{$tours[$i]->id}}" class="btn btn-card h-75 w-100">
+    <a href="/tours/{{$tours[$i]->id}}" class="btn btn-card h-75 w-100">
         <img class="card-img-top h-100" src="{{url($tours[$i]->photo)}}" alt="Card image cap">
     </a>
         <div class="h-25 d-flex justify-content-between" style="flex-direction:column">
             <div class="p-0 h-75 d-flex justify-content-center" style="flex-direction:column">
                 <div class="mb-2 d-flex justify-content-between">
-                    <a href="/tour/{{$tours[$i]->id}}" class="text-decoration-none">
+                    <a href="/tours/{{$tours[$i]->id}}" class="text-decoration-none">
                     <p class="card-text" style="font-size: 1.5rem; color: #232931; font-weight: 600;">
                         {{$tours[$i]->title}}
                     </p>

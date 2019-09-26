@@ -16,7 +16,7 @@ use \Carbon\Carbon;
 
 class TransactionController extends Controller
 {
-    public function bookingTour()
+    public function orderTour()
     {
         $input = request()->all();
         $tour_id = $input['tour_id'];
@@ -30,7 +30,7 @@ class TransactionController extends Controller
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
-            return redirect('/tour/' . $tour_id)
+            return redirect('/tours/' . $tour_id)
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -69,7 +69,7 @@ class TransactionController extends Controller
 
             // 交易結束
             DB::commit();
-            return redirect('/user/' . $user_id . '/booking-list');
+            return redirect('/users/' . $user_id . '/orders');
         } catch (Exception $exception) {
             // 恢復原先交易狀態
             DB::rollBack();
@@ -86,12 +86,6 @@ class TransactionController extends Controller
             ->withErrors($error_message)
             ->withInput();
         }
-
-        //session()->put('id', $id);
-        //session()->flash('booking', $input);
-        // return redirect('/transaction/')
-        //     ->with('booking', $input)
-        //     ->with('tour_id', $id);
     }
 
     public function bookingPage()
@@ -196,7 +190,7 @@ class TransactionController extends Controller
             // 交易結束
             DB::commit();
             return redirect()
-                ->to('/transaction/' . $Order->id);
+                ->to('/orders/' . $Order->id);
         } catch (Exception $exception) {
             // 恢復原先交易狀態
             DB::rollBack();
@@ -259,7 +253,7 @@ class TransactionController extends Controller
 
         if ($validator->fails()) {
             // 資料驗證錯誤
-            return redirect('/transaction/' . $id . '/comment')
+            return redirect('/orders/' . $id . '/comment')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -276,6 +270,6 @@ class TransactionController extends Controller
         $Order->comment()->firstOrCreate($input);
         // $Order->save();
         // 重新導向到原先使用者造訪頁面，沒有嘗試造訪頁則重新導向回首頁
-        return redirect()->intended('/tour/' . $Order->tour->id);
+        return redirect()->intended('/tours/' . $Order->tour->id);
     }
 }

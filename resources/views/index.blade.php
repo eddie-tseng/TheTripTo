@@ -28,7 +28,7 @@
             <p class="text-white" style="font-size:1.25rem; letter-spacing:0.5rem;">帶您深入世界的每個角落，體驗在地生活</p>
         </div>
     </div>
-    <form action="/tour/tour-list/search/" method="get">
+    <form action="/tours" method="get">
         <div class="search col-md-8">
             <div class="input-group col-md-8 mx-auto p-0">
                 <input type="text" class="form-control" id="search" name="search" data-toggle="dropdown"
@@ -64,32 +64,27 @@
 <div class="popular-spot px-4 mb-4">
     <p class="title text-center m-0">熱門景點</p>
     <div class="row mt-4">
-        @for ($i = 0; $i < 2; $i++) <div class="col-xl-6">
-            @include('component.tour-2card')
+        @for ($i = 0; $i < 4; $i++)
+            <div class="col-xl-6">
+                @include('component.tour-2card')
+            </div>
+        @endfor
     </div>
-    @endfor
-</div>
-<div class="row mt-4">
-    @for ($i = 2; $i < 6; $i++) <div class="col-xl-3">
-        @include('component.tour-4card')
-</div>
-@endfor
-</div>
 </div>
 
 <div class="popular-country px-4">
     <p class="title text-center m-0">熱門目的地</p>
     <div class="row d-flex justify-content-between mx-1">
-        <a href="/tour/tour-list/search/?country=日本&sort=default"
+        <a href="/tours?country=日本&sort=default"
             class="country col-xl-4 text-center text-decoration-none text-white">
             <p class="text-white">日本</p>
         </a>
 
-        <a href="/tour/tour-list/search/?country=韓國&sort=default"
+        <a href="/tours?country=韓國&sort=default"
             class="country col-xl-4 text-center text-decoration-none">
             <p class="text-white">韓國</p>
         </a>
-        <a href="/tour/tour-list/search/?country=泰國&sort=default"
+        <a href="/tours?country=泰國&sort=default"
             class="country col-xl-4 text-center text-decoration-none">
             <p class="text-white">泰國</p>
         </a>
@@ -99,18 +94,11 @@
 <div class="classic-tour px-4">
     <p class="title text-center m-0">精選推薦</p>
     <div class="row mt-4">
-        @for ($i = 6; $i < 7; $i++)
-        <div class="col-xl-8 mt-4">
-            @include('component.tour-card_2_1')
-        </div>
-        @endfor
-        <div class="col-xl-4">
-            @for ($i = 7; $i < 9; $i++)
-            <div class="col-xl-12 mt-4">
-                @include('component.tour-4card')
+        @for ($i = 4; $i < 8; $i++)
+            <div class="col-xl-6">
+                @include('component.tour-2card')
             </div>
-            @endfor
-        </div>
+        @endfor
     </div>
 </div>
 
@@ -121,14 +109,38 @@
 <script type="text/javascript">
     $(document).on('ready', function(){
         $('.carousel').carousel({interval: 5000});
-
-        $('#favorite>img').attr('src', "");
-        // $('#account-modal').modal('show');
-        if (!{{empty(session()->has('user_id'))}}) {
-
-        return;
-        }
     });
 
 </script>
+<script>
+        var userId = {{session()->get('user_id') ? session()->get('user_id') : 0}};
+
+        $('.favorite-tour').on('click', function () {
+            if (userId === 0) {
+                $('#account-modal').modal('show');
+            }
+            else{
+                var btnFavoriteTour = $(this).children();
+                $.ajax({
+                    type:'post',
+                    url:'/users/'+userId+'/favorite-tours',
+                    data:{
+                        '_token': '{{csrf_token()}}',
+                        'user_id': userId,
+                        'tour_id': $(this).parent().children().first().text()
+                    },
+                    success:function(data){
+                       if (data.isEnable === true) {
+                        btnFavoriteTour.attr('src', "/img/site/heart.svg");
+                       } else {
+                        btnFavoriteTour.attr('src', "/img/site/heart-o.svg");
+                       }
+                    },
+                    error:function(data){
+                       alert("系統錯誤，請聯絡 THE TRIP TO [ ]");
+                    }
+                });
+            }
+         });
+    </script>
 @endsection

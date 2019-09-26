@@ -1,5 +1,5 @@
 <div class="tour-card h-100" style="border-width:0 0 10px 0;border-style:solid; border-color:#232931;">
-        <a href="/tour/{{$tours[$i]->id}}" class="btn btn-card">
+        <a href="/tours/{{$tours[$i]->id}}" class="btn btn-card">
             <img class="card-img-top" src="{{url($tours[$i]->photo)}}" alt="Card image cap">
             <div class="card-body p-0">
                 <div class="mb-4 d-flex justify-content-between">

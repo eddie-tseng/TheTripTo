@@ -3,45 +3,65 @@
 namespace App\Repositories;
 
 use App\Entities\AvailableDate;
+use Illuminate\Support\Facades\Log;
 
 class AvailableDateRepository
 {
+    private $queryBuilder;
+
     public function __construct()
     {
-        $this->availableDate = AvailableDate::query();
+        $this->queryBuilder = AvailableDate::query();
     }
 
-    // public function getDatesCount($tourId)
-    // {
-    //     return $this->availableDate
-    //         ->where('tour_id', $tourId)->count();
-    // }
     public function get()
     {
-        return $this->availableDate->get();
+        return $this->queryBuilder->get();
     }
 
     public function count()
     {
-        return $this->availableDate->count();
+        return $this->queryBuilder->count();
     }
 
-    public function filterByField($fieldName, $criteria)
+    public function filterByField($column, $operator, $value)
     {
-        $this->availableDate->where($fieldName, $criteria);
+        switch($operator)
+        {
+            case 'like':
+            case '=':
+                $this->queryBuilder->where($column, $operator, $value);
+                break;
+            case 'between':
+                $this->queryBuilder->whereBetween($column, $value);
+                break;
+            case 'in':
+                $this->queryBuilder->whereIn($column, $value);
+                break;
+            default:
+                return $this;
+            break;
+        }
+        return $this;
+
+    }
+
+    public function sort($column, $key)
+    {
+        $this->queryBuilder->orderBy($column, $key);
+
         return $this;
     }
 
-
     public function getColumn($filedName)
     {
-        return $this->availableDate->pluck($filedName);
+        return $this->queryBuilder->pluck($filedName);
     }
 
-    // public function getDates($tourId)
-    // {
-    //     return $this->availableDate
-    //         ->where('tour_id', $tourId)->get();
-    // }
+    public function paginate($count)
+    {
+        return $this->queryBuilder->paginate($count);
+    }
 
 }
+

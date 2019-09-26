@@ -18,7 +18,7 @@
   <body>
     {{-- 錯誤訊息模板元件 --}}
     @include('validationfail')
-    <form class="form-signin" action="/user/sign-in" method="post">
+    <form class="form-signin" action="/sign-in" method="post">
       <div class="text-center mb-4">
         <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>

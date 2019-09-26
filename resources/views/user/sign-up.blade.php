@@ -19,7 +19,7 @@
 @section('content')
 @include('validationfail')
 <div class="container-fluid w-50">
-    <form action="/user/sign-up" method="post">
+    <form action="/sign-up" method="post">
         <div class="row my-5">
             <div class="col-sm-12">
                 <div class="header align-center text-md-center mt-5 mb-2">
@@ -49,11 +49,11 @@
 
                     <div class="col-sm-6 mb-4">
                         <label for="password">密碼</label>
-                        <input type="text" class="form-control" id="password" name="password" placeholder="">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="">
                     </div>
                     <div class="col-sm-6 mb-4">
                         <label for="password_confirmation">確認密碼</label>
-                        <input type="text" class="form-control" id="password_confirmation" name="password_confirmation"
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
                             placeholder="">
                     </div>
 

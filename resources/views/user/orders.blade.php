@@ -25,9 +25,9 @@
             </label>
 
             <ul class="list-group w-75 mx-auto sub-title my-4 py-2" id="user-control-items" style="line-height: 2em;">
-                <a href="/user/{{session()->get('user_id')}}">個人檔案</a>
-                <a href="/user/{{session()->get('user_id')}}/booking-list" class="active"><span>我的旅程</span></a>
-                <a href="/user/{{session()->get('user_id')}}/wish-list"><span>我的收藏</span></a>
+                <a href="/users/{{session()->get('user_id')}}">個人檔案</a>
+                <a href="/users/{{session()->get('user_id')}}/orders" class="active"><span>我的旅程</span></a>
+                <a href="/users/{{session()->get('user_id')}}/favorite-tours"><span>我的收藏</span></a>
             </ul>
         </div>
         <div class="col-sm-9">
@@ -36,7 +36,7 @@
 
             @if(!$order_list->isEmpty())
             @foreach($order_list as $order)
-            <div class="row mb-4 border mx-0" id="my-booking">
+            <div class="row mb-4 border mx-0">
                     <div class="col-sm-4 pl-0">
                         <img style="width:100%; height:100%" src={{url($order->tour->photo)}} alt="暫時沒有圖片">
                     </div>
@@ -55,11 +55,10 @@
                     </div>
                     <div class="m-0 pr-2">
                     <span>
-                        {{-- <a href="/transaction/{{$order->id}}" class="btn button-dark">查看詳情</a> --}}
                         @if (is_null($order->comment))
-                            <a href="/transaction/{{$order->id}}/comment" class="btn button-light pl-2">給予評論</a>
+                            <a href="/orders/{{$order->id}}/comment" class="btn button-light pl-2">給予評論</a>
                         @else
-                            <a href="/transaction/{{$order->id}}/comment" class="btn button-dark pl-2 disabled" aria-disabled="true">給予評論</a>
+                            <a href="/orders/{{$order->id}}/comment" class="btn button-dark pl-2 disabled" aria-disabled="true">給予評論</a>
                         @endif
 
                     </span>

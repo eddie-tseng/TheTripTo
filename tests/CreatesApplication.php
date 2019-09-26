@@ -17,6 +17,8 @@ trait CreatesApplication
 
         $app->make(Kernel::class)->bootstrap();
 
+        // config(['database.default' => 'sqlite']);
+
         return $app;
     }
 }

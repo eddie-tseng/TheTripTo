@@ -7,19 +7,21 @@ use Illuminate\Support\Facades\Log;
 
 class TourRepository
 {
+    private $queryBuilder;
+
     public function __construct()
     {
-        $this->tour = Tour::query();
+        $this->queryBuilder = Tour::query();
     }
 
     public function get()
     {
-        return $this->tour->get();
+        return $this->queryBuilder->get();
     }
 
     public function count()
     {
-        return $this->tour->count();
+        return $this->queryBuilder->count();
     }
 
     public function filterByField($column, $operator, $value)
@@ -28,13 +30,13 @@ class TourRepository
         {
             case 'like':
             case '=':
-                $this->tour->where($column, $operator, $value);
+                $this->queryBuilder->where($column, $operator, $value);
                 break;
             case 'between':
-                $this->tour->whereBetween($column, $value);
+                $this->queryBuilder->whereBetween($column, $value);
                 break;
             case 'in':
-                $this->tour->whereIn($column, $value);
+                $this->queryBuilder->whereIn($column, $value);
                 break;
             default:
                 return $this;
@@ -46,24 +48,20 @@ class TourRepository
 
     public function sort($column, $key)
     {
-        $this->tour->orderBy($column, $key);
+        $this->queryBuilder->orderBy($column, $key);
 
         return $this;
     }
 
     public function getColumn($filedName)
     {
-        return $this->tour->pluck($filedName);
+        return $this->queryBuilder->pluck($filedName);
     }
 
     public function paginate($count)
     {
-        return $this->tour->paginate($count);
+        return $this->queryBuilder->paginate($count);
     }
-    // public function getValue($filedName)
-    // {
-    //     return $this->tour->get($filedName);
-    // }
 
 }
 

@@ -6,21 +6,28 @@ label, p, a, a:hover{
     text-decoration: none;
     border: 0px;
 }
-
-.btn:hover{
-    color: white;
+.favorite-tour, .favorite-tour:hover {
+    padding: 0;
+    border: none;
+    background: none;
 }
-.button-light
+
+.page-item.active .page-link, .button-light, .button-dark:hover
 {
     background-color: #ffb400;
     color: white;
     border: 0px;
 }
-.button-dark
+.page-item .page-link, .button-dark, .button-light:hover
 {
     background-color: #232931;
     color: white;
     border: 0px;
+}
+
+.page-item.disabled .page-link
+{
+    display: none;
 }
 .border{
     border: 1px solid #2329318c!important;
@@ -37,21 +44,19 @@ hr{
 } */
 
 .title {
-    font-size: 2rem;
+    font-size: 2.5vw;
     font-weight: 800;
 }
 .sub-title {
-    font-size: 1.25rem;
+    font-size: 1.56vw;
     font-weight: 600;
     /* letter-spacing: 0.125rem; */
 }
 p {
-    /* font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 1rem; */
+    font-size: 1.25vw;
 }
 .info {
-    font-size: 0.75rem;
+    font-size: 0.94vw;
     font-weight: 400;
     /* letter-spacing: 1rem; */
 }
@@ -73,11 +78,11 @@ nav .search>.input-group button {
 }
 
 /* modal style */
-.modal button:not(.close){
+/* .modal button:not(.close){
     background-color: #232931;
     border-color: #232931;
     color: white;
-}
+} */
 
 /* index page style */
 .carousel-item {
@@ -163,22 +168,21 @@ nav .search>.input-group button {
 .sticky {
     position: fixed;
     top: 0;
-    right: calc(30px);
-    /* left: calc(66.6666% - 60*0.6666px + 30px); */
-    /* flex: 0 0 33.333333%; */
-    max-width: calc(33.3333% - 60*0.3333px - 5px);
+    right: 12.5%;
+    width: 25%;
   }
 /*user page style*/
 #user-control-items{
-    width: 61%!important;
+    width: 80%!important;
     border:1px solid #232931;
 }
 #user-control-items a{
     position: relative;
-    width: 100%;
+    width: 90%;
     display: block;
     padding: .75rem 1.25rem;
-    /* margin-bottom: -1px; */
+    margin-right: auto;
+    margin-left: auto;
     background-color: #fff;
     color: #232931;
     text-decoration: none;
@@ -210,14 +214,6 @@ nav .search>.input-group button {
     border-bottom:5px solid #ffb400;
   }
 
-/* #my-booking{
-    margin-left: 15px;
-    margin-right: 15px;
-}
-#my-wish{
-    margin-left: 15px;
-    margin-right: 15px;
-} */
 /*test*/
 .box1{
     background-color: gainsboro;

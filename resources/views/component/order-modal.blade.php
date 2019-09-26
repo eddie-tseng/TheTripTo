@@ -1,7 +1,7 @@
 <div class="modal fade" id="order-modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="/transaction" method="post">
+            <form action="/order" method="post">
                 <div class="modal-header">
                     <p class="sub-title mx-auto">{{str_replace("]", "] ", $tour->title)}}</p>
                     <button type="button" class="close p-0 m-0" data-dismiss="modal" aria-label="Close">
@@ -45,7 +45,7 @@
                         <p id="price">{{$tour->price}}</p>
                     </span></p>
             </div>
-            <button type="submit" class="btn btn-primary">送出訂單</button>
+            <button type="submit" class="btn button-light">送出訂單</button>
         </div>
         {{ csrf_field() }}
         </form>

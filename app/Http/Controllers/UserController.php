@@ -12,6 +12,7 @@ use DB;
 use Exception;
 use Image;
 use Session;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
@@ -43,7 +44,7 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             // 資料驗證錯誤
-            return redirect('/user/sign-up')
+            return redirect('/sign-up')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -122,7 +123,7 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             // 資料驗證錯誤
-            return redirect('/user/' . $user->id)
+            return redirect('/users/' . $user->id)
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -156,14 +157,14 @@ class UserController extends Controller
         $user->update($input);
 
         // 重新導向到商品編輯頁
-        return redirect('/user/' . $user->id);
+        return redirect('/users/' . $user->id);
     }
 
     // 登入
-    public function signInPage()
-    {
-        return view('user.sign-in');
-    }
+    // public function signInPage()
+    // {
+    //     return view('/');
+    // }
 
     // 處理登入資料
     public function signInProcess()
@@ -175,8 +176,8 @@ class UserController extends Controller
         }
         // 接收輸入資料
         $input = request()->all();
-        $data = Session::all();
-        session()->get('user_id');
+        // $data = Session::all();
+        // session()->get('user_id');
         // if($input['is_default_user'])
         // {
         //     $data = session()->all();
@@ -193,18 +194,28 @@ class UserController extends Controller
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
-            // 資料驗證錯誤
-            // return redirect('/user/sign-in')
-            //     ->withErrors($validator)
-            //     ->withInput();
-                return redirect()->intended('/user/sign-in')
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->intended('/')
+            ->withErrors($validator)
+            ->withInput();
         }
 
-        // 撈取使用者資料
-        $user= User::where('account', $input['account'])->firstOrFail();
 
+        try
+        {
+            $user= User::where('account', $input['account'])->firstOrFail();
+        }
+        catch(Exception $e)
+        {
+            $error_message = [
+                'msg' => [
+                    "帳號錯誤",
+                ],
+            ];
+
+                return redirect()->intended('/')
+                ->withErrors($error_message)
+                ->withInput();
+        }
         // 檢查密碼是否正確
         $is_password_correct = Hash::check($input['password'], $user->password);
 
@@ -215,12 +226,10 @@ class UserController extends Controller
                     '密碼驗證錯誤',
                 ],
             ];
-            // return redirect('/user/sign-in')
-            //     ->withErrors($error_message)
-            //     ->withInput();
-                return redirect()->intended('/user/sign-in')
-                ->withErrors($error_message)
-                ->withInput();
+
+            return redirect()->intended('/')
+            ->withErrors($error_message)
+            ->withInput();
         }
 
         // $newSessionId = session()->getId();
@@ -430,36 +439,35 @@ class UserController extends Controller
         $order_list = $user->orders()->paginate(8);
         $binding = [
             'order_list' => $order_list,
-            // 'Bookings' => $Bookings,
         ];
 
-        return view('user.booking-list', $binding);
+        return view('user.orders', $binding);
     }
 
-    public function wishListPage($user_id)
+    public function favoriteToursPage($user_id)
     {
         $user = User::findOrFail($user_id);
-        $whish_list = $user->favoriteTours()->paginate(8);
+        $favorite_tours = $user->favoriteTours()->paginate(8);
         $binding = [
-            'whish_list' => $whish_list,
+            'favorite_tours' => $favorite_tours ,
             // 'Bookings' => $Bookings,
         ];
 
-        return view('user.wish-list', $binding);
+        return view('user.favorite-tours', $binding);
     }
 
-    public function addWishList()
+    public function addFavoriteTour()
     {
         $isEnable = false;
         $input = request()->all();
 
-        $user= User::findOrFail($input['id']);
+        $user= User::findOrFail($input['user_id']);
 
-        if (!is_null($user->tours) && $user->tours->contains($input['id'])) {
-            $user->FavoriteTours()->detach($input['id']);
+        if (!is_null($user->favoriteTours) && $user->favoriteTours->contains($input['tour_id'])) {
+            $user->favoriteTours()->detach($input['tour_id']);
             $isEnable = false;
        } else {
-            $user->FavoriteTours()->attach($input['id']);
+            $user->favoriteTours()->attach($input['tour_id']);
             $isEnable = true;
        }
         return response()->json(['isEnable' => $isEnable]);

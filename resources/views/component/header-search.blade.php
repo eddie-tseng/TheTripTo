@@ -2,7 +2,7 @@
 
 @section('search')
 
-<form action="/tour/tour-list/search/" method="get">
+<form action="/tours" method="get">
      <div class="search col-sm-12 m-auto p-0 ">
         <div class="input-group col-sm-12 ml-5 p-0">
             <input type="text" class="form-control" id="search" name="search" data-toggle="dropdown" data-target="#search-result"

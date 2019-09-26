@@ -38,7 +38,7 @@ class TravelController extends Controller
         $Tour = Tour::create($tour_data);
 
         // 重新導向至商品編輯頁
-        return redirect('/tour/' . $Tour->id . '/edit');
+        return redirect('/tours/' . $Tour->id . '/edit');
     }
 
     // 商品編輯頁
@@ -88,7 +88,7 @@ class TravelController extends Controller
 
         if ($validator->fails()) {
             // 資料驗證錯誤
-            return redirect('/tour/' . $Tour->id)
+            return redirect('/tours/' . $Tour->id)
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -123,7 +123,7 @@ class TravelController extends Controller
         }
 
         // 重新導向到商品編輯頁
-        return redirect('/tour/' . $Tour->id);
+        return redirect('/tours/' . $Tour->id);
     }
 
     //行程頁
@@ -149,103 +149,7 @@ class TravelController extends Controller
             'comment_list' => $comment_list,
         ];
 
-        return view('tour.tours', $binding);
-    }
-
-
-
-    public function searchTour1()
-    {
-
-        $tours = array();
-        $selectedOptions =  array();
-        $input = request()->all();
-        $builder = Tour::where('status', 'r');
-
-        if (empty($input['search'])) {
-            $keyword = "";
-            $selectedOptions = array_merge($selectedOptions, ["country" => $input['country']]);
-            $builder->whereIn('country', $input['country']);
-            $tours = $builder->get();
-        } else {
-
-            if ($keyword = $input['search']) {
-                $builder->where('title', 'like', '%' . $keyword . '%');
-            }
-
-            $tours = $builder->get();
-
-            if (!empty($input['country'])) {
-                $selectedOptions = array_merge($selectedOptions, ["country" => $input['country']]);
-                $builder->whereIn('country', $input['country']);
-            }
-        }
-
-        if (!empty($input['city'])) {
-            $selectedOptions = array_merge($selectedOptions, ["city" => $input['city']]);
-            $builder->whereIn('city', $input['city']);
-        }
-
-        if (!empty($input['price'])) {
-            // $pirce=[ "min" => explode(',', $input['price'])[0], "max" => explode(',', $input['price'])[1] ];
-
-            $selectedOptions = array_merge($selectedOptions, ["price" =>  $input['price']]);
-            $builder->whereBetween('price', explode(',', $input['price']));
-        }
-
-
-        if (isset($input['sort'])) {
-
-            $selectedOptions = array_merge($selectedOptions, ['sort' => $input['sort']]);
-            if ($input['sort'] != "default") {
-                $builder->orderBy('price', explode('_', $input['sort'])[1]);
-            }
-        }
-
-        $tours_count = $builder->distinct()->count();
-        $tour_list = $builder->distinct()->paginate(8);
-
-
-        //$this->tourList($tour_list);
-        $avg_stars = array();
-        $tour_bookings = array();
-        $sum_stars = 0;
-
-        foreach ($tour_list as $tour) {
-            if (!$tour->orders->isEmpty()) {
-                $count = $tour->orders->count();
-                foreach ($tour->orders as $booking) {
-                    $sum_stars += $booking->comment->rating;
-                }
-                array_push($avg_stars,  $sum_stars / $count);
-                array_push($tour_bookings,  $count);
-            } else {
-                array_push($avg_stars, 0);
-                array_push($tour_bookings, 0);
-            }
-        }
-
-
-        $binding = [
-            'tours' => $tour_list,
-            'count' => $tours_count,
-            'keyword' => $keyword,
-            'avg_stars' => $avg_stars,
-            'orders' => $tour_bookings,
-            'selected_options' => $selectedOptions,
-            'initial_options' => [
-                'country' => $tours->map->only('country')->unique()->flatten(),
-                'city' => $tours->map->only('city')->unique()->flatten(),
-                'price' => ['min' => $tours->min('price'), 'max' => $tours->max('price')],
-            ]
-        ];
-
-
-        // if (!empty($selectedOptions)) {
-        //     $binding = array_merge($binding, ['selected_options',$selectedOptions]);
-        // }
-
-        return view('tour.tour-list', $binding);
+        return view('tour.detail-information', $binding);
     }
 
     public function searchTour()
@@ -329,57 +233,9 @@ class TravelController extends Controller
             'initial_options' => $initialOptions
         ];
 
-        return view('tour.tour-list', $binding);
+        return view('tour.tours', $binding);
     }
 
-    public function searchCountry($country)
-    {
-
-        $countries = [
-            'jp' => '日本',
-            'kr' => '韓國',
-            'th' => '泰國'
-        ];
-
-        //$tours = array();
-
-
-        if ($countries[$country]) {
-            $tours = Tour::where('country', '=', $countries[$country])
-                ->get();
-        }
-
-        $avg_stars = array();
-        $tour_bookings = array();
-        $sum_stars = 0;
-
-        foreach ($tours as $tour) {
-            if (!$tour->orders->isEmpty()) {
-                $count = $tour->orders->count();
-                foreach ($tour->orders as $booking) {
-                    $sum_stars += $booking->comment->recommend_value;
-                }
-                array_push($avg_stars,  $sum_stars / $count);
-                array_push($tour_bookings,  $count);
-            } else {
-                array_push($avg_stars, 0);
-                array_push($tour_bookings, 0);
-            }
-        }
-
-        $binding = [
-            'tours' => $tours,
-            'avg_stars' => $avg_stars,
-            'orders' => $tour_bookings,
-            'filters' => [
-                '國家' => $tours->map->only('country')->unique()->flatten(),
-                '城市' => $tours->map->only('city')->unique()->flatten(),
-                'price' => ['min' => $tours->min('price'), 'max' => $tours->max('price')],
-            ]
-        ];
-
-        return view('tour.tour-list', $binding);
-    }
 
     #private methods
     private function query($rules, $sort_column = null, $sort_key = null)
@@ -389,27 +245,5 @@ class TravelController extends Controller
         return $query->queryTours($rules, $sort_column, $sort_key);
     }
     #end
-
-    // public function searchCity()
-    // {
-
-    //     $tours = array();
-
-    //     $input = request()->all();
-
-    //     if($input['search'])
-    //     {
-    //         $tours = DB::table('tours')
-    //         ->where('city','=', $input['search'])
-    //         ->distinct()
-    //         ->get();
-    //     }
-
-    //     $binding = [
-    //         'tours' => $tours
-    //     ];
-
-    //     return view('tour.tour-list', $binding);
-    // }
 
 }

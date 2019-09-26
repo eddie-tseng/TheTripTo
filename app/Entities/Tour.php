@@ -64,31 +64,4 @@ class Tour extends Model
         return $query->whereType($type);
     }
 
-    public function bookingCount()
-    {
-        // $count = 0;
-        // $sum_stars = 0;
-
-        // $orders = $this->orders();
-
-        // foreach($orders as $booking){
-        //     $count++;
-        //     $sum_stars += $booking->comment->recommend_value;
-        // }
-
-        // if($count != 0)
-        // {
-        //     $avg_stars = round($sum_stars/$count);
-        // }
-        // else{
-        //     $avg_stars = 1;
-        // }
-        return $this->orders()->get()->count();
-    }
-
-    // public function avgRating()
-    // {
-    //     return $this->orders()->comment()->select('rating')->avg();
-    // }
-
 }

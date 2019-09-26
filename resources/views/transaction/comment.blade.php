@@ -30,7 +30,7 @@
         </div>
         <div class="col-sm-8 pl-5 pr-4 my-5">
             @include('validationfail')
-            <form action="/transaction/{{$order->id}}/comment" method="post">
+            <form action="/orders/{{$order->id}}/comment" method="post">
                 <div class="form-group">
                     <p class="sub-title text-left">旅遊評論</p>
                     <hr class="" style="height:1px; background-color:#23293132;">

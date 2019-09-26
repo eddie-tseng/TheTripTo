@@ -29,26 +29,25 @@
 @section('content')
 @include('validationfail')
 <div class="container-fluid w-75">
-    <form action="/user/{{session()->get('user_id')}}" method="post" enctype="multipart/form-data">
+    <form action="/users/{{session()->get('user_id')}}" method="post" enctype="multipart/form-data">
         {{method_field('PUT')}}
         <div class="row justify-content-around mt-5">
             <div class="col-sm-3 text-center">
                 <label for="photo" style="cursor: pointer">
                     <div class="row">
-                        <img src="{{session()->get('photo')}}" alt="user photo" class="rounded-circle mx-auto" />
+                        <img id="current-photo" src="{{session()->get('photo')}}" alt="user photo" class="rounded-circle mx-auto" />
                     </div>
                     <div class="row mt-2">
-                        <img src={{url("/img/site/star-o.svg")}} class="rounded-circle mx-auto"
-                            style="background-color:#ffb400" alt="camera" width="30px" height="30px">
+                        <i class="fa fa-camera mx-auto"></i>
                     </div>
                 </label>
                 <input type="file" id="photo" name="photo" hidden>
 
                 <ul class="list-group w-75 mx-auto sub-title my-4 py-2" id="user-control-items"
                     style="line-height: 2em;">
-                    <a href="/user/{{session()->get('user_id')}}"" class="active">個人檔案</a>
-                    <a href="/user/{{session()->get('user_id')}}/booking-list"><span>我的旅程</span></a>
-                    <a href="/user/{{session()->get('user_id')}}/wish-list"><span>我的收藏</span></a>
+                    <a href="/users/{{session()->get('user_id')}}" class="active">個人檔案</a>
+                    <a href="/users/{{session()->get('user_id')}}/orders"><span>我的旅程</span></a>
+                    <a href="/users/{{session()->get('user_id')}}/favorite-tours"><span>我的收藏</span></a>
                 </ul>
             </div>
             <div class="col-sm-9">
@@ -138,6 +137,11 @@
 $('.date').datepicker({
     format: 'yyyy-mm-dd',
     autoclose: true,
+});
+</script>
+<script>
+$('#photo').on('change', function(){
+    $('button').click();
 });
 </script>
 @endsection

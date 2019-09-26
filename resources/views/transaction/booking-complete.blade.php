@@ -41,9 +41,9 @@
         <div class="col-md-2 offset-3 my-auto">
             {{-- <a name="" id="" class="btn-lg btn-dark" href="#" role="button" >發表評論</a> --}}
             @if (is_null($Order->comment))
-            <a href="/transaction/{{$Order->id}}/comment" class="btn btn-dark pl-2">給予評論</a>
+            <a href="/orders/{{$Order->id}}/comment" class="btn btn-dark pl-2">給予評論</a>
             @else
-            <a href="/transaction/{{$Order->id}}/comment" class="btn btn-dark pl-2 disabled" aria-disabled="true">給予評論</a>
+            <a href="/orders/{{$Order->id}}/comment" class="btn btn-dark pl-2 disabled" aria-disabled="true">給予評論</a>
             @endif
         </div>
     </div>

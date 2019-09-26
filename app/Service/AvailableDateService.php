@@ -19,7 +19,7 @@ class AvailableDateService
     public function getRandomDate($tourId)
     {
         $dates = [];
-        $dates = $this->availableDateRepository->filterByField('tour_id', $tourId)->getColumn('available_date');
+        $dates = $this->availableDateRepository->filterByField('tour_id', '=', $tourId)->getColumn('available_date');
 
         return $dates->random();
     }

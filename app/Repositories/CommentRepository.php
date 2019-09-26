@@ -7,38 +7,61 @@ use Illuminate\Support\Facades\Log;
 
 class CommentRepository
 {
-    protected $comment;
+    protected $queryBuilder;
 
     public function __construct()
     {
-        $this->comment = Comment::query();
+        $this->queryBuilder = Comment::query();
     }
 
     public function get()
     {
-        return $this->comment->get();
+        return $this->queryBuilder->get();
     }
 
     public function count()
     {
-        return $this->comment->count();
+        return $this->queryBuilder->count();
     }
 
-    public function filterByField($fieldName, $criteria)
+    public function filterByField($column, $operator, $value)
     {
-        $this->comment->where($fieldName, $criteria);
+        switch($operator)
+        {
+            case 'like':
+            case '=':
+                $this->queryBuilder->where($column, $operator, $value);
+                break;
+            case 'between':
+                $this->queryBuilder->whereBetween($column, $value);
+                break;
+            case 'in':
+                $this->queryBuilder->whereIn($column, $value);
+                break;
+            default:
+                return $this;
+            break;
+        }
+        return $this;
+
+    }
+
+    public function sort($column, $key)
+    {
+        $this->queryBuilder->orderBy($column, $key);
+
         return $this;
     }
 
     public function getColumn($filedName)
     {
-        return $this->comment->pluck($filedName);
+        return $this->queryBuilder->pluck($filedName);
     }
 
-    // public function getValue($filedName)
-    // {
-    //     return $this->tour->get($filedName);
-    // }
+    public function paginate($count)
+    {
+        return $this->queryBuilder->paginate($count);
+    }
 
 }
 

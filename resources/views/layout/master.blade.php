@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html lang="zh-TW">
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') - THE TRIP TO [ ]</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -25,16 +27,6 @@
         <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/holder.min.js"></script>
-        {{-- <script>
-            $(document).on('ready', function () {
-                $('.log-in a').on('click', function () {
-                    var id = this.id;
-                    $('.log-in form').attr('action', '/user/'+id);
-                    $('#trigger-submit').click();
-                });
-
-            });
-        </script> --}}
     <!--================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/js/search-bar.js"></script>
