@@ -1,9 +1,9 @@
-<div class="container-fluid p-0" style="background-color:#232931;">
+<div class="footer container-fluid p-0" style="background-color:#232931;">
     <div class="row">
-        <a href="/" class="logo col-md-4 text-center my-auto">
+        <a href="/" class="logo col-lg-4 text-center my-auto">
             <img src={{url("/img/site/logo-o.svg")}} alt="" width="105px" height="51px">
         </a>
-        <div class="about-me col-md-4 mt-4">
+        <div class="about-me col-lg-4 mt-4">
             <h5 class="text-white">認識 THE TRIP TO [&nbsp;&nbsp;&nbsp;&nbsp;]</h5>
             <ul class="p-0" style="list-style-type: none">
                 <li><a href="#" class="text-white text-decoration-none">關於 THE TRIP TO [&nbsp;&nbsp;&nbsp;&nbsp;]</a></li>
@@ -12,7 +12,7 @@
                 <li><a href="#" class="text-white text-decoration-none">常見問題</a></li>
             </ul>
         </div>
-        <div class="social-media col-md-4 mt-4">
+        <div class="social-media col-lg-4 mt-4">
 
             <h5 class="text-white">聯絡我們</h5>
 

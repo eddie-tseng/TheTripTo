@@ -144,7 +144,7 @@
         </div>
     </div> --}}
 <!--旅客資料-->
-                    @include('validationfail')
+
                     <form action="/transaction" method="post">
                     <div class="card">
                         <div class="card-header">

@@ -7,11 +7,8 @@ use Socialite;
 use Validator;  // 驗證器
 use Hash;       // 雜湊
 use App\Entities\User;   // 使用者 Eloquent Model
-use App\Entities\Tour;
-use DB;
 use Exception;
 use Image;
-use Session;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
@@ -31,19 +28,17 @@ class UserController extends Controller
         $input = request()->all();
 
         $rules = [
-            'account'=> 'required|max:150|email|unique:users',
-            'password' => 'required|same:password_confirmation|min:6|max:12',
-            'password_confirmation' => 'required|min:6|max:12',
+            'account' => 'required|max:150|email|unique:users',
+            'password' => 'required|same:password_confirmation|between:6,12',
+            'password_confirmation' => 'required|between:6,12',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
-            'phone' => 'required',
-            ];
+            'phone' => 'required|numeric',
+        ];
 
-        // 驗證資料
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
-            // 資料驗證錯誤
             return redirect('/sign-up')
                 ->withErrors($validator)
                 ->withInput();
@@ -55,7 +50,7 @@ class UserController extends Controller
         $input = array_merge(
             $input,
             [
-            'mail' => $input['account']
+                'mail' => $input['account']
             ]
         );
 
@@ -77,14 +72,11 @@ class UserController extends Controller
     public function profilePage($id)
     {
         // Get user profile
-        $user= User::findOrFail($id);
-        if (!isset($user->photo))
-        {
+        $user = User::findOrFail($id);
+        if (!isset($user->photo)) {
             $user->photo = "/img/profile.png";
             session()->put('photo', url($user->photo));
-        }
-        else
-        {
+        } else {
             session()->put('photo', url($user->photo));
         }
 
@@ -98,25 +90,21 @@ class UserController extends Controller
     //更新使用者資料
     public function updateProfile($id)
     {
-        // Get user profile
-        $user= User::findOrFail($id);
-        // 接收輸入資料
+        $user = User::findOrFail($id);
         $input = request()->all();
 
-        // 驗證規則
         $rules = [
             'password' => 'nullable|same:password_confirmation|min:6|max:12',
-            // 密碼驗證
             'password_confirmation' => 'nullable|min:6|max:12',
-            'photo'=> 'max: 10240', // 10 MB
+            'photo' => 'max:20|mimes:jpeg,bmp,png',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
-            'phone' => 'required',
+            'phone' => 'required|numeric',
             'country' => 'max:20',
-            'birth_date' => 'date',
+            'birth_date' => 'date_format:Y-m-d',
             'gender' => 'in:m,f',
             'mail' => 'required|max:150|email',
-            ];
+        ];
 
         // 驗證資料
         $validator = Validator::make($input, $rules);
@@ -128,10 +116,9 @@ class UserController extends Controller
                 ->withInput();
         }
 
-        if(isset($input['password'])){
+        if (isset($input['password'])) {
             $input['password'] = Hash::make($input['password']);
-        }
-        else{
+        } else {
             $input['password'] = $user->password;
         }
 
@@ -160,59 +147,39 @@ class UserController extends Controller
         return redirect('/users/' . $user->id);
     }
 
-    // 登入
-    // public function signInPage()
-    // {
-    //     return view('/');
-    // }
-
-    // 處理登入資料
     public function signInProcess()
     {
 
-        if(!session()->has('url.intended'))
-        {
+        if (!session()->has('url.intended')) {
             session()->put('url.intended', url()->previous());
         }
-        // 接收輸入資料
+
         $input = request()->all();
-        // $data = Session::all();
-        // session()->get('user_id');
-        // if($input['is_default_user'])
-        // {
-        //     $data = session()->all();
-        // }
-        // 驗證規則
+
         $rules = [
-            // Email
-            'account'=> 'required|max:150|email',
-            // 密碼
-            'password' => 'required|min:6|max:12',
+            'account' => 'required|max:150|email',
+            'password' => 'required|between:6,12',
         ];
 
-        // 驗證資料
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
             return redirect()->intended('/')
-            ->withErrors($validator)
-            ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
 
-        try
-        {
-            $user= User::where('account', $input['account'])->firstOrFail();
-        }
-        catch(Exception $e)
-        {
+        try {
+            $user = User::where('account', $input['account'])->firstOrFail();
+        } catch (Exception $e) {
             $error_message = [
                 'msg' => [
                     "帳號錯誤",
                 ],
             ];
 
-                return redirect()->intended('/')
+            return redirect()->intended('/')
                 ->withErrors($error_message)
                 ->withInput();
         }
@@ -228,8 +195,8 @@ class UserController extends Controller
             ];
 
             return redirect()->intended('/')
-            ->withErrors($error_message)
-            ->withInput();
+                ->withErrors($error_message)
+                ->withInput();
         }
 
         // $newSessionId = session()->getId();
@@ -245,9 +212,7 @@ class UserController extends Controller
         if (is_null($user->photo)) {
             // 設定商品照片網址
             session()->put('photo', url("img/profile.png"));
-        }
-        else
-        {
+        } else {
             session()->put('photo', url($user->photo));
         }
 
@@ -302,11 +267,11 @@ class UserController extends Controller
         $github_name = $GithubUser->name;
 
         // 取得使用者資料是否有此 Github id 資料
-        $user= User::where('github_id', $github_id)->first();
+        $user = User::where('github_id', $github_id)->first();
 
         if (is_null($user)) {
             // 沒有綁定 Github Id 的帳號，透過 Email 尋找是否有此帳號
-            $user= User::where('email', $github_email)->first();
+            $user = User::where('email', $github_email)->first();
             if (!is_null($user)) {
                 // 有此帳號，綁定 Github Id
                 $user->github_id = $github_id;
@@ -326,7 +291,7 @@ class UserController extends Controller
             // 密碼加密
             $input['password'] = Hash::make($input['password']);
             // 新增會員資料
-            $user= User::create($input);
+            $user = User::create($input);
 
             // 寄送註冊通知信
             $mail_binding = [
@@ -389,11 +354,11 @@ class UserController extends Controller
         $facebook_name = $FacebookUser->name;
 
         // 取得使用者資料是否有此 Facebook id 資料
-        $user= User::where('facebook_id', $facebook_id)->first();
+        $user = User::where('facebook_id', $facebook_id)->first();
 
         if (is_null($user)) {
             // 沒有綁定 Facebook Id 的帳號，透過 Email 尋找是否有此帳號
-            $user= User::where('email', $facebook_email)->first();
+            $user = User::where('email', $facebook_email)->first();
             if (!is_null($user)) {
                 // 有此帳號，綁定 Facebook Id
                 $user->facebook_id = $facebook_id;
@@ -413,7 +378,7 @@ class UserController extends Controller
             // 密碼加密
             $input['password'] = Hash::make($input['password']);
             // 新增會員資料
-            $user= User::create($input);
+            $user = User::create($input);
 
             // 寄送註冊通知信
             $mail_binding = [
@@ -433,12 +398,14 @@ class UserController extends Controller
         return redirect()->intended('/');
     }
 
-    public function toursPage($id){
+    public function toursPage($id)
+    {
 
         $user = User::findOrFail($id);
-        $order_list = $user->orders()->paginate(8);
+        $order_list = $user->orders()->orderBy('created_at', 'desc')->paginate(8);
         $binding = [
             'order_list' => $order_list,
+            'title' => "我的旅程",
         ];
 
         return view('user.orders', $binding);
@@ -449,8 +416,8 @@ class UserController extends Controller
         $user = User::findOrFail($user_id);
         $favorite_tours = $user->favoriteTours()->paginate(8);
         $binding = [
-            'favorite_tours' => $favorite_tours ,
-            // 'Bookings' => $Bookings,
+            'favorite_tours' => $favorite_tours,
+            'title' => "我的收藏",
         ];
 
         return view('user.favorite-tours', $binding);
@@ -461,16 +428,15 @@ class UserController extends Controller
         $isEnable = false;
         $input = request()->all();
 
-        $user= User::findOrFail($input['user_id']);
+        $user = User::findOrFail($input['user_id']);
 
         if (!is_null($user->favoriteTours) && $user->favoriteTours->contains($input['tour_id'])) {
             $user->favoriteTours()->detach($input['tour_id']);
             $isEnable = false;
-       } else {
+        } else {
             $user->favoriteTours()->attach($input['tour_id']);
             $isEnable = true;
-       }
+        }
         return response()->json(['isEnable' => $isEnable]);
     }
-
 }

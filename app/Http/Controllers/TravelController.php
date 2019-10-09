@@ -59,72 +59,6 @@ class TravelController extends Controller
         return view('tour.tours-editer', $binding);
     }
 
-    //更新行程資料
-    public function updateTour($id)
-    {
-        // Get user profile
-
-        $Tour = Tour::findOrFail($id);
-        // 接收輸入資料
-        $input = request()->all();
-
-        // 驗證規則
-        $rules = [
-            'title' => 'required|max:100',
-            'status' => 'in:c,r', // C:create, R:ready
-            'photo' => 'max: 10240',
-            'introduction' => 'required',
-            'sub_title' => 'required|max:100',
-            'price' => 'required|min:0',
-            'inventory' => 'required|min:0',
-            'country' => 'required|max:100',
-            'city' => 'required|max:100',
-            'latitude' => 'required',
-            'longitude' => 'required',
-        ];
-
-        // 驗證資料
-        $validator = Validator::make($input, $rules);
-
-        if ($validator->fails()) {
-            // 資料驗證錯誤
-            return redirect('/tours/' . $Tour->id)
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        if (isset($input['photo'])) {
-            // 有上傳圖片
-            $photo = $input['photo'];
-            // 檔案副檔名
-            $file_extension = $photo->getClientOriginalExtension();
-            // 產生自訂隨機檔案名稱
-            $file_name = uniqid() . '.' . $file_extension;
-            // 檔案相對路徑
-            $file_relative_path = 'img/tour/' . $file_name;
-            // 檔案存放目錄為對外公開 public 目錄下的相對位置
-            $file_path = public_path($file_relative_path);
-            // 裁切圖片
-            Image::make($photo)->save($file_path);
-            // 設定圖片檔案相對位置
-            $input['photo'] = $file_relative_path;
-        }
-
-        // 商品資料更新
-        $Tour->update($input);
-
-        $dates = explode(",", $input['available_date']);
-
-        foreach ($dates as $val) {
-            //$date = new AvailableDates(['available_date' => $val]);
-
-            $Tour = Tour::find($id);
-            $Tour->AvailableDates()->firstOrCreate(['available_date' => $val]);
-        }
-
-        // 重新導向到商品編輯頁
-        return redirect('/tours/' . $Tour->id);
-    }
 
     //行程頁
     public function tourPage($tour_id)
@@ -147,6 +81,7 @@ class TravelController extends Controller
             'tour' => $tour,
             'gps' => $GPS,
             'comment_list' => $comment_list,
+            'title' => $tour->title,
         ];
 
         return view('tour.detail-information', $binding);
@@ -227,10 +162,10 @@ class TravelController extends Controller
         $binding = [
             'tour_list'=> $tour_list,
             'page' => $page,
-            'tour_count' => count($tour_list),
             'sort' => $sort,
             'selected_options' => $selectedOptions,
-            'initial_options' => $initialOptions
+            'initial_options' => $initialOptions,
+            'title' => '經典行程'
         ];
 
         return view('tour.tours', $binding);

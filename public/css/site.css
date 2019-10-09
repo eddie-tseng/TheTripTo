@@ -1,4 +1,4 @@
-/* global style */
+/* General styles */
 
 html, body {margin: 0; padding: 0; overflow-x:hidden;}
 label, p, a, a:hover{
@@ -6,12 +6,15 @@ label, p, a, a:hover{
     text-decoration: none;
     border: 0px;
 }
+a:hover, button:hover{
+    cursor: pointer;
+}
+
 .favorite-tour, .favorite-tour:hover {
     padding: 0;
     border: none;
     background: none;
 }
-
 .page-item.active .page-link, .button-light, .button-dark:hover
 {
     background-color: #ffb400;
@@ -39,60 +42,126 @@ hr{
     color: #232931;
     border: 1px solid #2329318c;
 }
-/* .text-inverse{
-    color: white;
-} */
 
+#slogan {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing:0.5rem;
+}
 .title {
-    font-size: 2.5vw;
+    font-size: 24px;
     font-weight: 800;
 }
 .sub-title {
-    font-size: 1.56vw;
+    font-size: 20px;
     font-weight: 600;
     /* letter-spacing: 0.125rem; */
 }
-p {
-    font-size: 1.25vw;
+p, .content {
+    font-size: 14px;
 }
 .info {
-    font-size: 0.94vw;
+    font-size: 12px;
     font-weight: 400;
     /* letter-spacing: 1rem; */
 }
 
 
-/* nav bar */
+@media (max-width: 991px) {
+    #slogan {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing:0.5rem;
+    }
+    .title {
+        font-size: 16px;
+        font-weight: 800;
+    }
+    .sub-title {
+        font-size: 16px;
+        font-weight: 600;
+        /* letter-spacing: 0.125rem; */
+    }
+    p, .content {
+        font-size: 14px;
+    }
+    .info {
+        font-size: 12px;
+        font-weight: 400;
+        /* letter-spacing: 1rem; */
+    }
+}
+
+/* header and footer */
+nav #logo{
+    width: 10vw;
+}
 nav .search {
     z-index: 10;
 }
-nav .search>.input-group>input {
+nav .search .input-group input {
     width: 30vw;
     height: 40px;
 }
 
-nav .search>.input-group button {
+nav .search .input-group button {
     background-color: #ffb400;
+    border: none;
     height: 40px;
     align-items: center;
 }
-
-/* modal style */
-/* .modal button:not(.close){
-    background-color: #232931;
-    border-color: #232931;
-    color: white;
-} */
-
-/* index page style */
-.carousel-item {
-    margin: -364px 0px -364px 0px;
+nav .btn-search img{
+    width: 25px;
+    vertical-align: baseline;
 }
 
-.carousel-caption {
-    margin-bottom: 150px;
-    padding: 0;
-    font-weight: 600;
+#search-link{
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .navbar {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    .search{
+        display: none;
+    }
+    #search-link{
+        display: block;
+    }
+    #search-modal .input-group>input {
+        width: 20vw;
+        height: 30px;
+    }
+
+    #search-modal .input-group button {
+        background-color: #ffb400;
+        height: 30px;
+        align-items: center;
+    }
+
+    .footer .logo {
+        display: none;
+    }
+    .about-me, .social-media{
+        margin-left: 20px;
+    }
+
+    nav .btn-search img{
+        width: 20px;
+        vertical-align: baseline;
+    }
+
+}
+
+
+
+/* index page style */
+.carousel-item img {
+    width: 100vw;
+    height: 80vh;
 }
 
 .carousel .search {
@@ -120,8 +189,11 @@ nav .search>.input-group button {
     height: 60px;
     align-items: center;
 }
-#search-result>li{
-    margin-left: 1rem;
+
+.carousel-caption {
+    margin-bottom: 150px;
+    padding: 0;
+    font-weight: 600;
 }
 
 .caption {
@@ -135,22 +207,22 @@ nav .search>.input-group button {
     letter-spacing: 1.5rem;
 }
 
-.popular-spot .title,
+/* .popular-spot .title,
 .popular-country .title,
 .classic-tour .title {
-    /* color: #232931; */
+
     font-weight: 600;
     font-size: 1.125rem;
-}
+} */
 
 .popular-country .country {
     display: inline-block;
-    height: 337px;
-    line-height: 337px;
+    height: 50vh;
+    line-height: 50vh;
     background-color: #232931;
     color: white;
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 30px;
     letter-spacing: 0.75rem;
     flex-basis: 30% !important;
     margin: 10rem 0 0 0;
@@ -164,13 +236,47 @@ nav .search>.input-group button {
     margin: 10rem 0 10rem 0;
 }
 
+@media (max-width: 991px) {
+    .carousel-item {
+        width: 100%;
+        height: 45vh;
+    }
+    .popular-country .country {
+        display: inline-block;
+        height: 30vh;
+        line-height: 30vh;
+        background-color: #232931;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: 0.25rem;
+        flex-basis: 30% !important;
+        margin: 10rem 0 0 0;
+    }
+}
+
 /*tour page style*/
 .sticky {
     position: fixed;
-    top: 0;
+    top: 12%;
     right: 12.5%;
     width: 25%;
   }
+.order-card{
+    display: block;
+}
+.order-bar{
+    display: none;
+}
+
+@media (max-width: 991px) {
+   .order-card{
+       display: none;
+   }
+   .order-bar{
+       display: flex;
+   }
+}
 /*user page style*/
 #user-control-items{
     width: 80%!important;
@@ -214,6 +320,24 @@ nav .search>.input-group button {
     border-bottom:5px solid #ffb400;
   }
 
+#profile button{
+    width: 30%;
+}
+
+.btn-favorite{
+    width: 3%;
+}
+
+@media (max-width: 1139px) {
+    #user-control-items{
+        width: 100%!important;
+        border:1px solid #232931;
+    }
+
+    .btn-favorite{
+        width: 5%;
+    }
+}
 /*test*/
 .box1{
     background-color: gainsboro;

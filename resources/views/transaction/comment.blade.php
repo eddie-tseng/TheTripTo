@@ -1,5 +1,6 @@
 @extends('layout.master')
 
+@section('title', $title)
 @section('custom-css')
 <link href="/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
 @php
@@ -18,7 +19,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-between">
-        <div class="col-sm-4 pl-4 pt-4" style="background-color: #ffb400bf">
+        <div class="col-sm-4 px-4 pt-4" style="background-color: #ffb400bf">
             <div class="text-center my-4">
                 <img src="{{url($tour->photo)}}" class="w-100" alt="">
             </div>
@@ -28,8 +29,8 @@
 
             <p class="sub-title text-left ml-2">行程日期 : {{$order->travel_date}}</p>
         </div>
-        <div class="col-sm-8 pl-5 pr-4 my-5">
-            @include('validationfail')
+        <div class="col-sm-8 pl-sm-5 px-4 my-5">
+
             <form action="/orders/{{$order->id}}/comment" method="post">
                 <div class="form-group">
                     <p class="sub-title text-left">旅遊評論</p>

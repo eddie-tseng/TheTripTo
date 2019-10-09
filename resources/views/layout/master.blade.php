@@ -1,5 +1,5 @@
-<!DOCTYPE html >
-<html lang="zh-TW">
+<!DOCTYPE html>
+<html lang="zh-Hant">
 
 <head>
     <meta charset="utf-8">
@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    @include('component.validationfail-modal')
     @yield('header')
     @yield('banner')
     @yield('modal')
@@ -23,13 +24,17 @@
     @include('component.footer')
 
     <!-- Base JavaScript-->
-        <script src="/js/jquery-2.2.4.min.js"></script>
-        <script src="/js/popper.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/holder.min.js"></script>
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/holder.min.js"></script>
+    <script src="/js/holder.min.js"></script>
     <!--================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Custom JS-->
     <script src="/js/search-bar.js"></script>
+    <script>
+        $('#validationfail-modal').modal('show');
+    </script>
     @yield('custom-js')
 </body>
 

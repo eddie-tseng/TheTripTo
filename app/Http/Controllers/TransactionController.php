@@ -23,7 +23,7 @@ class TransactionController extends Controller
         // unset($input['tour_id']);
 
         $rules = [
-            'travel_date' => 'required',
+            'travel_date' => 'required|date_format:Y-m-d|after:strtotime("now")',
             'quantity' => 'required|min:1',
         ];
 
@@ -231,7 +231,8 @@ class TransactionController extends Controller
 
         $binding = [
             'order' => $order,
-            'tour' => $tour
+            'tour' => $tour,
+            'title' => '旅遊評論'
         ];
 
         return view('transaction.comment', $binding);

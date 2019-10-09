@@ -16,7 +16,7 @@ class HomeController extends Controller
 
         $binding = [
             'tours' => $tours,
-            'title' => "首頁"
+            'title' => "首頁",
         ];
 
         return view('index', $binding);

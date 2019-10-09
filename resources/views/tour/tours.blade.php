@@ -1,5 +1,6 @@
 @extends('layout.master')
 
+@section('title', $title)
 @section('custom-css')
 <link href="/css/bootstrap-slider.min.css" rel="stylesheet">
 @php
@@ -17,30 +18,30 @@
 @endsection
 
 @section('content')
-<div class="container-fluid w-75">
+<div class="container-fluid" style="width: 85%">
     <form action="/tours" method="get" class="filter">
         @switch (array_key_first($page))
             @case('search')
-                <p class="title mb-2">您搜尋的關鍵字 : {{$page['search']}}</p>
+                <p class="title my-2">您搜尋的關鍵字 : {{$page['search']}}</p>
                 <input type="text" name="search" value="{{$page['search']}}" hidden>
                 @break
             @case('country')
-                <p class="title mb-2">{{$page['country']}} </p>
+                <p class="title my-2">{{$page['country']}} </p>
                 <input type="text" name="country" value="{{$page['country']}}" hidden>
-                <p class="info mb-2"><a href="/" class="font-weight-bold">首頁</a>&nbsp;|&nbsp;{{$page['country']}}</p>
+                <p class="info my-2"><a href="/" class="font-weight-bold">首頁</a>&nbsp;|&nbsp;{{$page['country']}}</p>
                 @break
             @case('city')
-                <p class="title mb-2">{{$page['city']}} </p>
+                <p class="title my-2">{{$page['city']}} </p>
                 <input type="text" name="city" value="{{$page['city']}}" hidden>
                 <p class="info mb-2"><a href="/" class="font-weight-bold">首頁</a>&nbsp;|&nbsp;
                     <a href="/tours/?country={{$page['country']}}&sort=default" class="font-weight-bold">{{$page['country']}}</a>&nbsp;|&nbsp;
                     {{$page['city']}}</p>
                 @break
             @default
-                <p class="title">系統錯誤，請重新搜尋</p>
+                <p class="title my-2">系統錯誤，請重新搜尋</p>
                 @break
         @endswitch
-        <p class="font-weight-bold">找到 {{$tour_count}} 個經典行程</p>
+        <p class="font-weight-bold">找到 {{$tour_list->total()}} 個經典行程</p>
         <hr style="height:1px; background-color:#23293132;">
         <div class="row justify-content-end m-0">
             <div class="form-group float-right">
@@ -63,13 +64,13 @@
                             @if(isset($selected_options))
                                 @foreach($selected_options as $filter => $options)
                                     @if ($filter == 'price')
-                                        <button type="button" class="btn button-dark float-left p-0 m-1" id="price">
+                                        <button type="button" class="condition btn button-dark float-left p-0 m-1" id="price">
                                             <span class="badge badge-lg">{{explode(',', $selected_options['price'])[0]}} ~ {{explode(',', $selected_options['price'])[1]}} <i class="fa fa-times"></i></span>
                                         </button>
                                         @continue
                                     @endif
                                     @foreach ( $options as $option)
-                                        <button type="button" class="btn button-dark float-left p-0 m-1" id="{{$option}}">
+                                        <button type="button" class="condition btn button-dark float-left p-0 m-1" id="{{$option}}">
                                             <span class="badge badge-lg">{{$option}} <i
                                                     class="fa fa-times"></i></span>
                                         </button>
@@ -134,10 +135,10 @@
                     @foreach($tour_list as $tour)
                     <a href="/tours/{{$tour->id}}">
                         <div class="row mb-4 border mx-0">
-                            <div class="col-md-4 pl-md-0">
+                            <div class="col-md-4 pl-md-0 p-0">
                                 <img style="width:100%; height:100%" src={{url($tour->photo)}} alt="暫時沒有圖片">
                             </div>
-                            <div class="col-md-8 col-sm-12 d-flex flex-column justify-content-between pr-2">
+                            <div class="col-md-8 col-12 d-flex flex-column justify-content-between pr-2">
                                 <div class="m-0 d-flex flex-column">
                                     <p class="sub-title m-0 pt-2">{{$tour->title}}</p>
                                 </div>
@@ -228,7 +229,7 @@ $("#sort").on('change', function(){
     $('.filter').submit();
 });
 //badges
-$(".btn").on('click', function(){
+$(".condition").on('click', function(){
 var id = this.id;
 if (id == "price") {
     $("#price-bar").prop("disabled", true);

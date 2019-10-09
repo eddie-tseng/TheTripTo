@@ -45,7 +45,7 @@
                         <p id="price">{{$tour->price}}</p>
                     </span></p>
             </div>
-            <button type="submit" class="btn button-light">送出訂單</button>
+            <button class="btn button-light" id="booking" type="button">送出訂單</button>
         </div>
         {{ csrf_field() }}
         </form>
