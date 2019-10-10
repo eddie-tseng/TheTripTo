@@ -154,6 +154,10 @@ nav .btn-search img{
         vertical-align: baseline;
     }
 
+    #user-center{
+        margin-left: 0 !important;
+    }
+
 }
 
 
@@ -255,10 +259,10 @@ nav .btn-search img{
     }
 }
 
-/*tour page style*/
+/*detail-information page style*/
 .sticky {
     position: fixed;
-    top: 12%;
+    top: 3%;
     right: 12.5%;
     width: 25%;
   }
@@ -325,10 +329,10 @@ nav .btn-search img{
 }
 
 .btn-favorite{
-    width: 3%;
+    width: 4%;
 }
 
-@media (max-width: 1139px) {
+@media (max-width: 991px) {
     #user-control-items{
         width: 100%!important;
         border:1px solid #232931;

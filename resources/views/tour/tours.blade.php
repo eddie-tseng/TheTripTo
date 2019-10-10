@@ -56,9 +56,9 @@
             </div>
         </div>
         <div class="row justify-content-around mx-0">
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="row">
-                    <div class="col-md-12 mb-4 py-4 border">
+                    <div class="col-lg-12 mb-4 py-4 border">
                         <p class="pl-4 font-weight-bold">已選擇</h5>
                             <div class="row ml-5 mr-1">
                             @if(isset($selected_options))
@@ -85,7 +85,7 @@
                                     <p class="pl-4 font-weight-bold">價格 (TWD)</h5>
                                         <div class="row mx-4">
                                         @if (isset($selected_options['price']))
-                                        <p id="price-interval" class="">{{explode(',', $selected_options['price'])[0]}} ~ {{explode(',', $selected_options['price'])[1]}}</p>
+                                        <p id="price-interval" class="col-12">{{explode(',', $selected_options['price'])[0]}} ~ {{explode(',', $selected_options['price'])[1]}}</p>
                                         <input
                                             type="text"
                                             id="price-bar"
@@ -98,7 +98,7 @@
                                             data-slider-value="[{{explode(',', $selected_options['price'])[0]}},{{explode(',', $selected_options['price'])[1]}}]"
                                         >
                                         @else
-                                        <p id="price-interval" class="">{{$initial_options['price']['min']}} ~ {{$initial_options['price']['max']}}</p>
+                                        <p id="price-interval" class="col-12">{{$initial_options['price']['min']}} ~ {{$initial_options['price']['max']}}</p>
                                         <input
                                             type="text"
                                             id="price-bar"
@@ -129,16 +129,16 @@
                 </div>
             </div>
 
-            <div class="col-md-9">
-                <div class="row ml-md-0">
+            <div class="col-lg-9">
+                <div class="row ml-lg-0">
                     @if(!$tour_list->isEmpty())
                     @foreach($tour_list as $tour)
                     <a href="/tours/{{$tour->id}}">
                         <div class="row mb-4 border mx-0">
-                            <div class="col-md-4 pl-md-0 p-0">
+                            <div class="col-lg-4 pl-lg-0 p-0">
                                 <img style="width:100%; height:100%" src={{url($tour->photo)}} alt="暫時沒有圖片">
                             </div>
-                            <div class="col-md-8 col-12 d-flex flex-column justify-content-between pr-2">
+                            <div class="col-lg-8 col-12 d-flex flex-column justify-content-between pr-2">
                                 <div class="m-0 d-flex flex-column">
                                     <p class="sub-title m-0 pt-2">{{$tour->title}}</p>
                                 </div>

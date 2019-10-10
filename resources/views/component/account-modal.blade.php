@@ -41,8 +41,8 @@
                         </form>
                     </div>
                     <hr hidden>
-                    <div class="fast-log-in row justify-content-center text-md-center" hidden>
-                                <div class="col-md-6">
+                    <div class="fast-log-in row justify-content-center text-lg-center" hidden>
+                                <div class="col-lg-6">
                                     <p class="sub-title">快速登入</p>
 
                                     <div class="row justify-content-around mt-4">
@@ -57,11 +57,11 @@
                                 </div>
                         </div>
                         <hr style="height:1px; background-color:#23293132;" hidden>
-                        <div class="default-account row justify-content-center text-md-center mb-4" hidden>
+                        <div class="default-account row justify-content-center text-lg-center mb-4" hidden>
                             <form  action="/sign-in" method="post">
                                 <input type="text" name="is_default_user" value="true" hidden>
                                 {{-- <input type="text" name="search" value="{{$page['search']}}" hidden> --}}
-                                <div class="col-md-12 text-center mx-auto">
+                                <div class="col-lg-12 text-center mx-auto">
                                     <p class="sub-title">預設帳號</p>
                                     <button type="submit" class="btn button-dark text-white px-4 py-4 my-2">TEST</button>
                                     <p>預設帳號 - 還剩 1 個</p>

@@ -24,7 +24,6 @@
     <img src={{url("/img/site/search.svg")}} alt="search" width="18" height="18">
 </a>
 <form action="/tours" method="get">
-
     @include('component.search-modal')
 </form>
 

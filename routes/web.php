@@ -22,6 +22,8 @@ Route::group(['middleware'=> 'throttle:30,1'], function(){
     Route::post('/sign-up', 'UserController@signUpProcess');
     Route::post('/sign-in', 'UserController@signInProcess');
     Route::get('/sign-out', 'UserController@signOut');
+    Route::get('/google-sign-in', 'UserController@googleSignInProcess');
+    Route::get('/google-sign-in-callback', 'UserController@googleSignInCallbackProcess');
 });
 
 Route::group(['prefix' => 'users','middleware'=>['auth.user','throttle:30,1']], function(){

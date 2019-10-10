@@ -311,90 +311,62 @@ class UserController extends Controller
         return redirect()->intended('/');
     }
 
-    // Facebook 登入
-    public function facebookSignInProcess()
+    public function googleSignInProcess()
     {
-        $redirect_url = env('FB_REDIRECT');
+        $redirect_url = env('GOOGLE_REDIRECT');
 
-        return Socialite::driver('facebook')
-            ->scopes(['user_friends'])
-            ->redirectUrl($redirect_url)
+        return Socialite::driver('google')
             ->redirect();
     }
 
-    // Facebook 登入重新導向授權資料處理
-    public function facebookSignInCallbackProcess()
+    public function googleSignInCallbackProcess()
     {
         if (request()->error == 'access_denied') {
             throw new Exception('授權失敗，存取錯誤');
         }
-        // 依照網域產出重新導向連結 (來驗證是否為發出時同一 callback )
-        $redirect_url = env('FB_REDIRECT');
-        // 取得第三方使用者資料
-        $FacebookUser = Socialite::driver('facebook')
-            ->fields([
-                'name',
-                'email',
-                'gender',
-                'verified',
-                'link',
-                'first_name',
-                'last_name',
-                'locale',
-            ])
-            ->redirectUrl($redirect_url)->user();
+        $googleUser = Socialite::driver('google')->user();
 
-        $facebook_email = $FacebookUser->email;
+        $google_email = $googleUser->getEmail;
 
-        if (is_null($facebook_email)) {
+        if (is_null($google_email)) {
             throw new Exception('未授權取得使用者 Email');
         }
-        // 取得 Facebook 資料
-        $facebook_id = $FacebookUser->id;
-        $facebook_name = $FacebookUser->name;
 
-        // 取得使用者資料是否有此 Facebook id 資料
-        $user = User::where('facebook_id', $facebook_id)->first();
+        $google_id = $googleUser->getId;
+        $google_name = $googleUser->getName;
+
+        // 取得使用者資料是否有此 Github id 資料
+        $user = User::where('facebook_id', $google_id)->first();
 
         if (is_null($user)) {
             // 沒有綁定 Facebook Id 的帳號，透過 Email 尋找是否有此帳號
-            $user = User::where('email', $facebook_email)->first();
+            $user = User::where('email', $google_email)->first();
             if (!is_null($user)) {
                 // 有此帳號，綁定 Facebook Id
-                $user->facebook_id = $facebook_id;
+                $user->facebook_id = $google_id;
                 $user->save();
             }
         }
 
         if (is_null($user)) {
-            // 尚未註冊
+            $password = substr(uniqid(),0,8);
             $input = [
-                'email'       => $facebook_email,   // Email
-                'nickname'    => $facebook_name,    // 暱稱
-                'password'    => uniqid(),          // 隨機產生密碼
-                'facebook_id' => $facebook_id,      // Facebook ID
-                'type'        => 'G',               // 一般使用者
+                'account' => $google_email,
+                'mail' => $google_email,
+                'phone' => "1111111",
+                'first_name' => $google_name['givenName'],
+                'last_name' => $google_name['familyName'],
+                'password' => $password,
+                'fb_account' => $google_id,
             ];
             // 密碼加密
             $input['password'] = Hash::make($input['password']);
             // 新增會員資料
             $user = User::create($input);
-
-            // 寄送註冊通知信
-            $mail_binding = [
-                'nickname' => $input['nickname'],
-                'email' => $input['email'],
-            ];
-
-            SendSignUpMailJob::dispatch($mail_binding)
-                ->onQueue('high');
         }
 
-        // 登入會員
-        // session 紀錄會員編號
-        session()->put('id', $user->id);
+        session()->put('user_id', $user->id);
 
-        // 重新導向到原先使用者造訪頁面，沒有嘗試造訪頁則重新導向回首頁
         return redirect()->intended('/');
     }
 

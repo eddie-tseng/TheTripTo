@@ -102,7 +102,7 @@
                             <input type="text" class="form-control" id="password_confirmation" name="password_confirmation"
                                 placeholder="">
                         </div>
-                        <div class="col-lg-12 text-center">
+                        <div class="col-12 text-center">
                             <button type="submit" class="btn-lg button-light content">
                                 儲存
                             </button>

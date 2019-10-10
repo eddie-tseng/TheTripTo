@@ -10,7 +10,17 @@
 @endsection
 
 @section('header')
-@include('component.header-index')
+
+@extends('component.header')
+@section('search-link')
+<a id="search-link" class="navbar-nav ml-auto mr-4" data-toggle="modal" data-target="#search-modal">
+    <img src={{url("/img/site/search.svg")}} alt="search" width="18" height="18">
+</a>
+<form action="/tours" method="get">
+    @include('component.search-modal')
+</form>
+@endsection
+
 @endsection
 
 
@@ -67,7 +77,7 @@
     <p class="title text-center m-0">熱門景點</p>
     <div class="row mt-4">
         @for ($i = 0; $i < 4; $i++)
-            <div class="col-lg-6 col-12 mt-4">
+            <div class="col-lg-6 mt-4">
                 @include('component.tour-2card')
             </div>
         @endfor

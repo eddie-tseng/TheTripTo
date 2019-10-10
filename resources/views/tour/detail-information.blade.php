@@ -29,7 +29,7 @@
         <div class="information col-12 col-lg-8 text-left">
             <div class="row justify-content-satrt">
                 <p class="title ml-3 mr-0 my-auto">{{str_replace("]", "] ", $tour->title)}}</p>
-                <button class="favorite-tour btn-favorite ml-2 mb-1" type="button"><img alt="收藏"></button>
+                <a class="favorite-tour btn-favorite ml-2 my-auto"><img alt="收藏"></a>
             </div>
             <a href='/tours?country={{$tour->country}}&sort=default' class="info">{{$tour->country}}</a>
             <a href='/tours?city={{$tour->city}}&sort=default' class="info">|&nbsp;&nbsp;{{$tour->city}}</a>
@@ -70,8 +70,9 @@
             <hr class="mx-0">
             <div class="map row">
                 <p class="sub-title">地圖</p>
-                <iframe src={{$gps}} width="100%" height="320" frameborder="0" style="border:0"
-                    allowfullscreen=true></iframe>
+                <iframe src={{$map}} width="100%" height="320" frameborder="0" style="border:0"
+                    allowfullscreen=true>
+                </iframe>
             </div>
             <hr class="mx-0">
             <div class="comment row">
@@ -169,7 +170,7 @@ $('.date').datepicker({
             orderCard.classList.remove("sticky");
         }
     }
-    $('#booking').on('click', function (event){
+    $('#order').on('click', function (event){
         if (userId === 0) {
             $('#account-modal').modal('show');
             $('#order-modal').toggle();

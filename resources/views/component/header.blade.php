@@ -5,7 +5,7 @@
 
     @yield('search')
 
-    <div class="navbar-nav mr-2" style="display: inline-block;">
+    <div class="navbar-nav mr-2 ml-auto" id="user-center" style="display: inline-block;">
         <ul class="navbar-nav float-right text-right">
             @if(session()->has('user_id'))
             <div class="row">

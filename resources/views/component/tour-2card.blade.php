@@ -1,18 +1,18 @@
 <div class="tour-card h-100" style="border-width:0 0 10px 0;border-style:solid; border-color:#232931;">
-    <a href="/tours/{{$tours[$i]->id}}" class="btn btn-card h-50 w-100 p-0">
+    <a href="/tours/{{$tours[$i]->id}}" class="btn btn-card h-60 w-100 p-0">
         <img class="card-img-top h-100" src="{{url($tours[$i]->photo)}}" alt="Card image cap">
     </a>
-        <div class="h-50 d-flex justify-content-between" style="flex-direction:column">
-            <div class="p-0 h-75 d-flex justify-content-center" style="flex-direction:column">
+        <div class="h-40 d-flex justify-content-between flex-column">
+            <div class="p-0 h-75 d-flex justify-content-center flex-column">
                 <div class="my-1 d-flex justify-content-between">
                     <div class="tour-id" hidden>{{$tours[$i]->id}}</div>
-                    <p class="card-text title my-auto">
+                    <a href="/tours/{{$tours[$i]->id}}" class="card-text title my-auto">
                         {{$tours[$i]->title}}
-                    </p>
-                    <button class="favorite-tour my-auto">
+                    </a>
+                    <a class="favorite-tour btn-favorite my-auto">
                         <img src={{$tours[$i]->favoriteTours->where('id', session()->get('user_id'))->count()!= 0 ? "/img/site/heart.svg" : "/img/site/heart-o.svg"}}
-                         alt="收藏" width="25vw">
-                    </button>
+                         alt="收藏">
+                    </a>
                 </div>
                 <div class="my-1 d-flex justify-content-between">
                     <div class="row p-0 mx-0">

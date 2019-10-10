@@ -54,7 +54,7 @@ class TransactionController extends Controller
             $tour->save();
 
             // 建立交易資料
-            $booking_data = [
+            $order_data = [
                 'travel_date' => $input['travel_date'],
                 'quantity' => $input['quantity'],
                 'status' => 'c',
@@ -62,7 +62,7 @@ class TransactionController extends Controller
                 'payment' => 'cc',
             ];
 
-            $order = new Order($booking_data);
+            $order = new Order($order_data);
             $order->user()->associate($user_id);
             $order->tour()->associate($tour_id);
             $order->save();
@@ -88,7 +88,7 @@ class TransactionController extends Controller
         }
     }
 
-    public function bookingPage()
+    public function orderPage()
     {
         $id = session()->get('user_id');
 
@@ -98,15 +98,15 @@ class TransactionController extends Controller
             'User' => $User,
         ];
 
-        return view('transaction.booking', $binding);
+        return view('transaction.order', $binding);
     }
 
-    public function createBooking()
+    public function createorder()
     {
         // 檢查遊客資料
         $input = request()->all();
-        $tourist_datas = $input['booking'];
-        $quantity = session()->get('booking.quantity');
+        $tourist_datas = $input['order'];
+        $quantity = session()->get('order.quantity');
         $rules = [
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
@@ -149,7 +149,7 @@ class TransactionController extends Controller
             // 取得登入會員資料
             $user_id = session()->get('user_id');
             $tour_id = session()->get('tour_id');
-            $quantity = session()->get('booking.quantity');
+            $quantity = session()->get('order.quantity');
 
 
             // 交易開始
@@ -170,15 +170,15 @@ class TransactionController extends Controller
             $Tour->save();
 
             // 建立交易資料
-            $booking_data = [
-                'travel_date' => session()->get('booking.travel_date'),
+            $order_data = [
+                'travel_date' => session()->get('order.travel_date'),
                 'quantity' => $quantity,
                 'status' => 'c',
                 'price' => $Tour->price,
                 'payment' => $input['payment'],
             ];
 
-            $Order = new Order($booking_data);
+            $Order = new Order($order_data);
             $Order->user()->associate($user_id);
             $Order->tour()->associate($tour_id);
             $Order->save();
@@ -208,7 +208,7 @@ class TransactionController extends Controller
         }
     }
 
-    public function bookingResult($id)
+    public function orderResult($id)
     {
         $order = Order::findOrFail($id);
 
@@ -216,7 +216,7 @@ class TransactionController extends Controller
             'Order' => $order,
         ];
 
-        return view('transaction.booking-complete', $binding);
+        return view('transaction.order-complete', $binding);
     }
 
     public function commentPage($id)

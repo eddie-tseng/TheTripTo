@@ -11,7 +11,7 @@
                 <div class="modal-body">
                     <input type="text" name="tour_id" value="{{$tour->id}}" hidden/>
                     <div class="row text-laft">
-                        <div class="form-group col-md-10">
+                        <div class="form-group col-lg-10">
                             <div class="input-group date" style="cursor: pointer">
                                 <label for="travel-date" class="my-auto mr-4">請選擇活動日期</label>
                                 <input type="text" class="form-control pr-4" id="travel-date" name="travel_date"
@@ -23,10 +23,7 @@
                         </div>
                     </div>
                     <div class="row text-laft">
-                        {{-- <div class="col-md-8">
-                                {{$tour->sub_title}}
-                    </div> --}}
-                    <div class="form-group col-md-4 pr-0">
+                    <div class="form-group col-lg-4 pr-0">
                         <label for="quantity" class="mr-2">數量</label>
                         <select name="quantity" id="quantity">
                             @for($count = 1; $count <= $tour->inventory-$tour->sold; $count++)
@@ -34,7 +31,7 @@
                                 @endfor
                         </select>
                     </div>
-                    <div class="form-group col-md-4 pl-0">
+                    <div class="form-group col-lg-4 pl-0">
                         <p class="">每人 TWD {{$tour->price}}</p>
                     </div>
                 </div>
@@ -45,7 +42,7 @@
                         <p id="price">{{$tour->price}}</p>
                     </span></p>
             </div>
-            <button class="btn button-light" id="booking" type="button">送出訂單</button>
+            <button class="btn button-light content" id="order" type="button">送出訂單</button>
         </div>
         {{ csrf_field() }}
         </form>

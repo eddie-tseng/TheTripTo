@@ -70,7 +70,7 @@ class TravelController extends Controller
         }
 
         if (!is_null($tour->latitude) && !is_null($tour->longitude)) {
-            $GPS = "https://www.google.com/maps/embed/v1/place?key=AIzaSyADdfy-XETavzARnlNC-G3ujuIOxTWU7-w&q=" .
+            $map = "https://www.google.com/maps/embed/v1/place?key=AIzaSyADdfy-XETavzARnlNC-G3ujuIOxTWU7-w&q=" .
                 (string) $tour->latitude . "," . (string) $tour->longitude .
                 "&zoom=18&language=zh-tw";
         }
@@ -79,7 +79,7 @@ class TravelController extends Controller
 
         $binding = [
             'tour' => $tour,
-            'gps' => $GPS,
+            'map' => $map,
             'comment_list' => $comment_list,
             'title' => $tour->title,
         ];

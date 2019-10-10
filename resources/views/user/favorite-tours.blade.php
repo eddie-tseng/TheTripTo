@@ -46,7 +46,7 @@
                         <div class="row ml-0 my-2">
                             <div class="tour-id" hidden>{{$tour->id}}</div>
                             <a class="sub-title m-0" href="/tours/{{$tour->id}}">{{$tour->title}}</a>
-                            <a class="favorite-tour btn-favorite ml-1 mb-0"><img alt="收藏"></a>
+                            <a class="favorite-tour btn-favorite ml-1 my-auto"><img alt="收藏"></a>
                         </div>
                         <div class="m-0 d-flex flex-column">
                             <p class="introduction">{{$tour->introduction}}</p>
