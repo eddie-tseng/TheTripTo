@@ -1,4 +1,4 @@
-@include('component.header')
+@extends('component.header')
 
 @section('search')
 <a id="search-link" class="navbar-nav ml-auto mr-4" data-toggle="modal" data-target="#search-modal">

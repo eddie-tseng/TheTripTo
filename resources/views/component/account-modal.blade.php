@@ -41,18 +41,14 @@
                         </form>
                     </div>
                     <hr hidden>
-                    <div class="fast-log-in row justify-content-center text-lg-center" hidden>
+                    <div class="fast-log-in row justify-content-center text-lg-center mb-4">
                                 <div class="col-lg-6">
                                     <p class="sub-title">快速登入</p>
 
                                     <div class="row justify-content-around mt-4">
-                                        <button type="submit">
-                                                <img src={{url("/img/site/fb.png")}} alt="" width="55px" height="55px">
-                                        </button>
-                                        <button type="submit">
-                                                <img src={{url("/img/site/ig.png")}} alt="" width="55px" height="55px">
-
-                                        </button>
+                                        <a href="/google-sign-in" type="button">
+                                            Google
+                                        </a>
                                     </div>
                                 </div>
                         </div>

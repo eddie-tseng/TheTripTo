@@ -326,24 +326,23 @@ class UserController extends Controller
         }
         $googleUser = Socialite::driver('google')->user();
 
-        $google_email = $googleUser->getEmail;
+        $google_email = $googleUser->getEmail();
 
         if (is_null($google_email)) {
             throw new Exception('未授權取得使用者 Email');
         }
 
-        $google_id = $googleUser->getId;
-        $google_name = $googleUser->getName;
+        $google_id = $googleUser->getId();
 
         // 取得使用者資料是否有此 Github id 資料
-        $user = User::where('facebook_id', $google_id)->first();
+        $user = User::where('fb_account', $google_id)->first();
 
         if (is_null($user)) {
             // 沒有綁定 Facebook Id 的帳號，透過 Email 尋找是否有此帳號
-            $user = User::where('email', $google_email)->first();
+            $user = User::where('mail', $google_email)->first();
             if (!is_null($user)) {
                 // 有此帳號，綁定 Facebook Id
-                $user->facebook_id = $google_id;
+                $user->fb_account = $google_id;
                 $user->save();
             }
         }
@@ -354,8 +353,8 @@ class UserController extends Controller
                 'account' => $google_email,
                 'mail' => $google_email,
                 'phone' => "1111111",
-                'first_name' => $google_name['givenName'],
-                'last_name' => $google_name['familyName'],
+                'first_name' => $googleUser->getFirstname(),
+                'last_name' => $googleUser->getLastname(),
                 'password' => $password,
                 'fb_account' => $google_id,
             ];
