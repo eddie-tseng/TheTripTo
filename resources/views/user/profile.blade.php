@@ -90,11 +90,12 @@
                         </div>
 
                     </div>
+                    @if(!session()->has('is_google_account'))
                     <p class="sub-title">密碼管理</p>
                     <hr style="height:1px; background-color:#23293132;">
                     <div class="row mb-4">
-                        <div class="col-lg-6 mb-4">
-                            <label for="password">密碼</label>
+                        <div class="col-lg-6">
+                            <label for="password">新密碼</label>
                             <input type="text" class="form-control" id="password" name="password" placeholder="">
                         </div>
                         <div class="col-lg-6 mb-4">
@@ -102,13 +103,13 @@
                             <input type="text" class="form-control" id="password_confirmation" name="password_confirmation"
                                 placeholder="">
                         </div>
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn-lg button-light content">
-                                儲存
-                            </button>
-                        </div>
                     </div>
-
+                    @endif
+                    <div class="col-12 text-center mb-4">
+                        <button type="submit" class="btn-lg button-light sub-title">
+                            儲存
+                        </button>
+                    </div>
                 </div>
             </div>
             {{ csrf_field() }}

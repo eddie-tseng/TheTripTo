@@ -40,14 +40,13 @@
                             {{ csrf_field() }}
                         </form>
                     </div>
-                    <hr hidden>
-                    <div class="fast-log-in row justify-content-center text-lg-center mb-4">
-                                <div class="col-lg-6">
+                    <hr>
+                    <div class="fast-log-in row justify-content-center text-center mb-5">
+                                <div class="col-12">
                                     <p class="sub-title">快速登入</p>
-
                                     <div class="row justify-content-around mt-4">
-                                        <a href="/google-sign-in" type="button">
-                                            Google
+                                        <a href="/google-sign-in">
+                                            <img src={{url("/img/site/google.png")}} alt="" width="80px" height="80px">
                                         </a>
                                     </div>
                                 </div>

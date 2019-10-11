@@ -1,5 +1,5 @@
-<div class="footer container-fluid p-0" style="background-color:#232931;">
-    <div class="row">
+<div class="footer container-fluid p-lg-0 pb-5" style="background-color:#232931;">
+    <div class="row pb-lg-2 pb-2">
         <a href="/" class="logo col-lg-4 text-center my-auto">
             <img src={{url("/img/site/logo-o.svg")}} alt="" width="105px" height="51px">
         </a>
