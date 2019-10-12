@@ -81,7 +81,7 @@
                         <div class="col-lg-6 mb-4">
                             <label for="phone">電話</label>
                             <input type="text" class="form-control" id="phone" name="phone" placeholder=""
-                                value="{{old('phone', $user->phone) }}" required>
+                                value="{{old('phone', $user->phone) }}">
                         </div>
                         <div class="col-lg-6 mb-4">
                             <label for="mail">電子郵件</label>

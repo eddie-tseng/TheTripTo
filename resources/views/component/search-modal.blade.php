@@ -9,7 +9,7 @@
                 <hr>
                 <div class="row mb-4">
                     <div class="input-group col-10 mx-auto p-0">
-                        <input type="text" class="text-search form-control" name="search" data-toggle="dropdown"
+                        <input type="text" class="search-text form-control" name="search" data-toggle="dropdown"
                             data-target="#search-result-sm" aria-haspopup="false" aria-expanded="false"
                             autocomplete="off" value="" placeholder="輸入關鍵字...">
                         <span class="input-group-btn">

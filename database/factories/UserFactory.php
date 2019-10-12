@@ -17,13 +17,17 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    if(!File::exists(public_path()."/img/user")){
+        File::makeDirectory(public_path()."/img/user");
+    }
+
     $mail = $faker->unique()->safeEmail;
     $gender = ['m','f'];
     $image = $faker->image('public/img/user',150,150,'people',false);
 
     return [
         'account' => $mail,
-        'fb_account'=> $faker->randomNumber(8),
+        'google_account'=> $faker->randomNumber(8),
         'mail' => $mail,
         'password'=>'$2y$10$mtaB9NlKZxXolSZ6HPtCLuaYbmuPZRHLxzMHc00X/0YXXDh9f5rLy', //88888888
         'photo'=> 'img/user/'.$image,

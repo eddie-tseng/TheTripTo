@@ -149,13 +149,13 @@
 
                                     <div class="d-flex flex-column">
                                         <div class="info mb-1">
-                                            <img src={{url("/img/site/location.svg")}} alt="" width="15px"
+                                            <img src={{url("/img/site/bus.svg")}} alt="交通方式" width="20px"
                                                 height="15px">
                                             <span class="pl-1">包含來回接送</span>
                                         </div>
                                         <div class="info mb-1">
-                                            <img src={{url("/img/site/star.svg")}} class="pb-1" alt="" width="15px"
-                                                height="15px">
+                                            <img src={{url("/img/site/guide.svg")}} class="pb-1" alt="導覽" width="20px"
+                                                height="20px">
                                             <span class="pl-1">中文導覽</span>
                                         </div>
                                         <div class="rating info pr-2">

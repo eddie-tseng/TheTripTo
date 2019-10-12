@@ -21,8 +21,8 @@
                             <span class="pl-1 content">{{$tours[$i]->country}}，{{$tours[$i]->city}}</span>
                         </div>
                         <div class="sold my-auto">
-                            <img src={{url("/img/site/plus.svg")}} alt="參加人數" width="14vw" >
-                            <span class="pl-1 content">已有{{$tours[$i]->sold}}人參加</span>
+                            <img src={{url("/img/site/plus.svg")}} alt="參加人數" class="mb-1" width="14vw" >
+                            <span class="pl-1 content">已有<span class="font-weight-bold">{{$tours[$i]->sold}}</span>人參加</span>
                         </div>
                     </div>
 

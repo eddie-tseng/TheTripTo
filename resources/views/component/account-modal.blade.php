@@ -33,8 +33,8 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-around mt-4">
-                                    <button onclick="javascript:location.href='{{url('/sign-up')}}'" type="button" class="px-4 btn button-dark">註冊</a>
-                                    <button id="sign-in" type="submit" class="px-4 btn button-dark">登入</button>
+                                    <button onclick="javascript:location.href='{{url('/sign-up')}}'" type="button" class="px-4 btn button-light">註冊</a>
+                                    <button id="sign-in" type="submit" class="px-4 btn button-light">登入</button>
                                 </div>
                             </div>
                             {{ csrf_field() }}
@@ -55,7 +55,6 @@
                         <div class="default-account row justify-content-center text-lg-center mb-4" hidden>
                             <form  action="/sign-in" method="post">
                                 <input type="text" name="is_default_user" value="true" hidden>
-                                {{-- <input type="text" name="search" value="{{$page['search']}}" hidden> --}}
                                 <div class="col-lg-12 text-center mx-auto">
                                     <p class="sub-title">預設帳號</p>
                                     <button type="submit" class="btn button-dark text-white px-4 py-4 my-2">TEST</button>

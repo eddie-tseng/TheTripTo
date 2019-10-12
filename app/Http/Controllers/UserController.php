@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Mail;
 use Socialite;
-use Validator;  // 驗證器
-use Hash;       // 雜湊
-use App\Entities\User;   // 使用者 Eloquent Model
+use Validator;
+use Hash;
+use App\Entities\User;
 use Exception;
 use Image;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
+    /**
+     * Get sign-up page
+     *
+     * @return View
+     */
     public function signUpPage()
     {
         $binding = [
@@ -21,6 +24,11 @@ class UserController extends Controller
         return view('user.sign-up', $binding);
     }
 
+    /**
+     * Add a new user
+     *
+     * @return RedirectResponse
+     */
     public function signUpProcess()
     {
         $input = request()->all();
@@ -31,7 +39,7 @@ class UserController extends Controller
             'password_confirmation' => 'required|between:6,12',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
-            'phone' => 'required|numeric',
+            'phone' => 'nullable|numeric',
         ];
 
         $validator = Validator::make($input, $rules);
@@ -56,9 +64,13 @@ class UserController extends Controller
         return redirect('/');
     }
 
+    /**
+     * User sign-in with normal account
+     *
+     * @return RedirectResponse
+     */
     public function signInProcess()
     {
-
         if (!session()->has('url.intended')) {
             session()->put('url.intended', url()->previous());
         }
@@ -108,8 +120,7 @@ class UserController extends Controller
 
 
         if (is_null($user->photo)) {
-            // 設定商品照片網址
-            session()->put('photo', url("img/profile.png"));
+            session()->put('photo', url("img/site/profile.png"));
         } else {
             session()->put('photo', url($user->photo));
         }
@@ -119,12 +130,24 @@ class UserController extends Controller
         return redirect()->intended('/');
     }
 
+    /**
+     * Redirect to google sign-in page.
+     *
+     * @return RedirectResponse
+     */
     public function googleSignInProcess()
     {
         return Socialite::driver('google')
             ->redirect();
     }
 
+    /**
+     * Call back to google API and get google account information.
+     * If user has an account, user will sign-in successfully.
+     * If user doesn't have an account, user will get a new account.
+     *
+     * @return RedirectResponse
+     */
     public function googleSignInCallbackProcess()
     {
         if (!session()->has('url.intended')) {
@@ -149,27 +172,25 @@ class UserController extends Controller
 
         $google_id = $googleUser->getId();
 
-        $user = User::where('fb_account', $google_id)->first();
+        $user = User::where('google_account', $google_id)->first();
 
         if (is_null($user)) {
             $user = User::where('mail', $google_email)->first();
             if (!is_null($user)) {
-                // 有此帳號，綁定 Facebook Id
-                $user->fb_account = $google_id;
+                $user->google_account = $google_id;
                 $user->save();
             }
         }
 
         if (is_null($user)) {
-            $password = substr(uniqid(),0,8);
+            $password = substr(uniqid(), 0, 8);
             $input = [
                 'account' => $google_email,
                 'mail' => $google_email,
-                'phone' => "1111111",
                 'first_name' => $googleUser->getFirstname(),
                 'last_name' => $googleUser->getLastname(),
                 'password' => $password,
-                'fb_account' => $google_id,
+                'google_account' => $google_id,
             ];
             $input['password'] = Hash::make($input['password']);
             $user = User::create($input);
@@ -181,6 +202,11 @@ class UserController extends Controller
         return redirect()->intended('/');
     }
 
+    /**
+     * Sign-out and redirect to index page.
+     *
+     * @return RedirectResponse
+     */
     public function signOut()
     {
         session()->forget('user_id');
@@ -190,11 +216,17 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    public function profilePage($id)
+    /**
+     * Get user's porfile page.
+     *
+     * @param int $user_id
+     * @return View
+     */
+    public function profilePage($user_id)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($user_id);
         if (!isset($user->photo)) {
-            $user->photo = "/img/profile.png";
+            $user->photo = "/img/site/profile.png";
             session()->put('photo', url($user->photo));
         } else {
             session()->put('photo', url($user->photo));
@@ -207,9 +239,15 @@ class UserController extends Controller
         return view('user.profile', $binding);
     }
 
-    public function updateProfile($id)
+    /**
+     * update user's porfile page.
+     *
+     * @param int $user_id
+     * @return View
+     */
+    public function updateProfile($user_id)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($user_id);
         $input = request()->all();
 
         $rules = [
@@ -218,9 +256,9 @@ class UserController extends Controller
             'photo' => 'max:20|mimes:jpeg,bmp,png',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
-            'phone' => 'required|numeric',
+            'phone' => 'nullable|numeric',
             'country' => 'max:20',
-            'birth_date' => 'date_format:Y-m-d',
+            'birth_date' => 'nullable|date_format:Y-m-d',
             'gender' => 'in:m,f',
             'mail' => 'required|max:150|email',
         ];
@@ -255,10 +293,15 @@ class UserController extends Controller
         return redirect('/users/' . $user->id);
     }
 
-    public function toursPage($id)
+    /**
+     * Get user's orders.
+     *
+     * @param int $user_id
+     * @return View
+     */
+    public function toursPage($user_id)
     {
-
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($user_id);
         $order_list = $user->orders()->orderBy('created_at', 'desc')->paginate(8);
         $binding = [
             'order_list' => $order_list,
@@ -268,6 +311,12 @@ class UserController extends Controller
         return view('user.orders', $binding);
     }
 
+    /**
+     * Get user's favorite Tours.
+     *
+     * @param int $user_id
+     * @return View
+     */
     public function favoriteToursPage($user_id)
     {
         $user = User::findOrFail($user_id);
@@ -280,6 +329,11 @@ class UserController extends Controller
         return view('user.favorite-tours', $binding);
     }
 
+    /**
+     * Add a tour in user's favorite Tours.
+     *
+     * @return JsonResponse
+     */
     public function addFavoriteTour()
     {
         $isEnable = false;

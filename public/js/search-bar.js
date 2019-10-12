@@ -1,7 +1,7 @@
 var result = "";
 var value = "";
 defaultValue();
-$('.text-search').on({
+$('.search-text').on({
     keyup: function (e) {
         var flag = e.target.isNeedPrevent;
         if (flag) return;

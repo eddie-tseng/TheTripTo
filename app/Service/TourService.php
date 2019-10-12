@@ -37,7 +37,6 @@ class TourService
 
                 break;
             }
-            // $this->TourRepository->filterByField($rule[0], $rule[1]);
         }
 
         if(isset($sort_column) && isset($sort_key))

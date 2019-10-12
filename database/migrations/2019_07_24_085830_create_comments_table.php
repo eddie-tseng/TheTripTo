@@ -14,10 +14,8 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            //$table->unsignedInteger('comment_id');
             $table->text('content');
             $table->unsignedSmallInteger('rating')->default(0);
-            // $table->nullableTimestamps();
             $table->dateTime('created_at');
             //Foreign Key: order_id
             $table->unsignedInteger('order_id');

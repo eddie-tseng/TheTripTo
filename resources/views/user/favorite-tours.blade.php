@@ -54,12 +54,12 @@
                         <div class="row d-flex justify-content-between mx-0">
                             <div class="d-flex flex-column col-12">
                                 <div class="info mb-1">
-                                    <img src={{url("/img/site/location.svg")}} alt="" width="15px" height="15px">
+                                    <img src={{url("/img/site/bus.svg")}} alt="" width="15px" height="15px">
                                     <span class="pl-1">包含來回接送</span>
                                 </div>
                                 <div class="info mb-1">
-                                    <img src={{url("/img/site/star.svg")}} class="pb-1" alt="" width="15px"
-                                        height="15px">
+                                    <img src={{url("/img/site/guide.svg")}} class="pb-1" alt="" width="16px"
+                                        height="25px">
                                     <span class="pl-1">中文導覽</span>
                                 </div>
                                 <div class="rating info pr-2">
@@ -71,7 +71,7 @@
                                         @endfor
                                 </div>
                             </div>
-                            <div class="m-0 pr-2 col-12">
+                            <div class="m-0 pt-2 pr-2 col-12">
                                 <p class="title">TWD {{$tour->price}}</p>
                             </div>
                         </div>

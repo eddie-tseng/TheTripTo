@@ -39,6 +39,7 @@ Route::group(['middleware'=> 'throttle:30,1'], function(){
     Route::get('/tours{search?}', 'TravelController@searchTour');
     Route::get('tours/{id}', 'TravelController@tourPage');
 });
+
 //Order
 Route::post('/order', 'TransactionController@orderTour')->middleware(['auth.user','throttle:30,1']);
 Route::group(['prefix' => 'orders', 'middleware' => ['auth.user','throttle:30,1']], function(){

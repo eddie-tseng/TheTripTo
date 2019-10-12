@@ -5,7 +5,7 @@
     <form action="/tours" method="get">
         <div class="col-12 m-auto p-0">
             <div class="input-group col-12 ml-5 p-0">
-                <input type="text" class="text-search form-control" name="search" data-toggle="dropdown"
+                <input type="text" class="search-text form-control" name="search" data-toggle="dropdown"
                     data-target="#search-result-lg" aria-haspopup="false" aria-expanded="false" autocomplete="off"
                     value="" placeholder="輸入關鍵字...">
                 <span class="input-group-btn">

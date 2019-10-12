@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Entities\Tour;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
@@ -18,6 +18,9 @@ use Faker\Generator as Faker;
 
 $factory->define(Tour::class, function (Faker $faker) {
     //$faker = Faker\Factory::create('zh_CN');
+    if(!File::exists(public_path()."/img/tour")){
+        File::makeDirectory(public_path()."/img/tour");
+    }
 
     $countries = ['韓國', '泰國', '日本'];
     $country = $faker->randomElement($countries);

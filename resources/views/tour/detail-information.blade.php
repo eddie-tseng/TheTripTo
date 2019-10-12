@@ -24,7 +24,7 @@
 
 <div class="container-fluid w-75">
     <p id="available-date" style="display:none">{{$tour->AvailableDates->implode('available_date', ',')}}</p>
-    <!--標題-->
+    <!--title-->
     <div class="row justify-content-start text-center">
         <div class="information col-12 col-lg-8 text-left">
             <div class="row justify-content-satrt">
@@ -34,32 +34,32 @@
             <a href='/tours?country={{$tour->country}}&sort=default' class="info">{{$tour->country}}</a>
             <a href='/tours?city={{$tour->city}}&sort=default' class="info">|&nbsp;&nbsp;{{$tour->city}}</a>
             <div class="row p-0 mx-0 my-2">
-                <div class="location info pr-4">
-                    <img src={{url("/img/site/location.svg")}} alt="" width="10px" height="15px">
+                <div class="location info pr-lg-5" style="padding-right:1.8rem">
+                    <img src={{url("/img/site/location.svg")}} alt="地點" width="10px" height="15px">
                     <span class="pl-1">{{$tour->country}}，{{$tour->city}}</span>
                 </div>
-                <div class="rating info pr-4">
-                    <img src={{url("/img/site/star.svg")}} class="pb-1" alt="" width="15px" height="15px">
-                    <span class="pl-1">{{$tour->rating}}</span>
+                <div class="rating info pr-lg-5" style="padding-right:2.4rem">
+                    <img src={{url("/img/site/star.svg")}} class="pb-1" alt="評分" width="15px" height="15px">
+                    <span class="pl-1 font-weight-bold">{{$tour->rating}}&nbsp;&nbsp;</span>
                 </div>
                 <div class="sold info">
-                    <img src={{url("/img/site/plus.svg")}} alt="" width=" 15px" height="15px">
-                    <span class="pl-1">已有<span>0</span>人參加</span>
+                    <img src={{url("/img/site/plus.svg")}} alt="參加人數" class="mb-1" width="12px" height="12px">
+                    <span class="pl-1">已有<span class="font-weight-bold">{{$tour->sold}}</span>人參加</span>
                 </div>
             </div>
             <div class="row p-0 mx-0 mb-2">
-                <div class="location info pr-4">
-                    <img src={{url("/img/site/location.svg")}} alt="" width="10px" height="15px">
-                    <span class="pl-1">包含來回接送</span>
+                <div class="location info pr-lg-4" style="padding-right:0.2rem">
+                    <img src={{url("/img/site/bus.svg")}} alt="交通方式" width="15px" height="15px">
+                    <span class="pl-1">包含來回接送&nbsp;</span>
                 </div>
-                <div class="rating info pr-4">
-                    <img src={{url("/img/site/star.svg")}} class="pb-1" alt="" width="15px" height="15px">
-                    <span class="pl-1">中文導覽</span>
+                <div class="rating info">
+                    <img src={{url("/img/site/guide.svg")}} class="pb-1" alt="導覽" width="25px" height="20px">
+                    <span class="pl-0">中文導覽</span>
                 </div>
             </div>
         </div>
     </div>
-    <!--內容-->
+    <!--content-->
     <div class="row">
         <div class="col-12 col-lg-8">
             <hr class="mx-0">
@@ -104,21 +104,21 @@
             {{$comment_list->render('vendor.pagination.bootstrap-4')}}
         </div>
 
-        <!--訂購卡-->
+        <!--order card-->
         <div class="order-card col-lg-4 justify-content-center mt-3">
             <div class="border text-center py-4">
                 <p class="title">{{$tour->sub_title}}</p>
                 <div class="text-left pl-5">
                     <div class="info mb-2">
-                        <img src={{url("/img/site/location.svg")}} alt="" width="15px" height="15px">
+                        <img src={{url("/img/site/bus.svg")}} alt="交通方式" width="15px" height="15px">
                         <span class="pl-1">包含來回接送</span>
                     </div>
                     <div class="info mb-2">
-                        <img src={{url("/img/site/star.svg")}} class="pb-1" alt="" width="15px" height="15px">
+                        <img src={{url("/img/site/guide.svg")}} class="pb-1" alt="導覽" width="16px" height="20px">
                         <span class="pl-1">中文導覽</span>
                     </div>
                     <div class="info mb-2">
-                        <img src={{url("/img/site/star.svg")}} class="pb-1" alt="" width="15px" height="15px">
+                        <img src={{url("/img/site/recipt.svg")}} class="pb-1" alt="票券" width="15px" height="20px">
                         <span class="pl-1">可用電子票券</span>
                     </div>
                 </div>

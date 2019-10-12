@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tour extends Model
 {
-    // 資料表名稱
+
     protected $table = 'tours';
-    // 主鍵名稱
+
     protected $primaryKey = 'id';
-    // 可以大量指定異動的欄位（Mass Assignment）
+
     protected $fillable = [
         'title',
         'photo',
@@ -26,8 +26,6 @@ class Tour extends Model
         'status'
     ];
 
-    //public $timestamps = false;
-    //protected $dateFormat = 'U';
 
     public function AvailableDates()
     {
@@ -48,11 +46,6 @@ class Tour extends Model
     {
         return $this->hasManyThrough('App\Entities\Comment', 'App\Entities\Order');
     }
-
-    // public function users()
-    // {
-    //     return $this->belongsToMany('App\Entities\User', 'favorite_tours');
-    // }
 
     public function scopePopular($query)
     {

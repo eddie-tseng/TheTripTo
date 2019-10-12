@@ -15,7 +15,6 @@ class CreateAvailableDatesTable extends Migration
     {
         Schema::create('available_dates', function (Blueprint $table) {
             $table->date('available_date');
-            //$table->integer('sub_title_daily_count_max')->default(0);
             //Foreign Key: tour_id
             $table->unsignedInteger('tour_id');
             $table->foreign('tour_id')->references('id')->on('tours')->onDelete('cascade');

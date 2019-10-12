@@ -1,6 +1,5 @@
 @extends('layout.master')
 
-@section('title', $title)
 @section('custom-css')
 
 @endsection
@@ -18,13 +17,13 @@
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block" src={{url("/img/site/IMG_9264.jpg")}} alt="First slide">
+            <img class="d-block" src={{url("/img/site/banner_1.png")}} alt="First slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block" src={{url("/img/site/IMG_1652.jpg")}} alt="Second slide">
+            <img class="d-block" src={{url("/img/site/banner_2.png")}} alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block" src={{url("/img/site/IMG_1278.jpg")}} alt="Third slide">
+            <img class="d-block" src={{url("/img/site/banner_3.png")}} alt="Third slide">
         </div>
         <div class="carousel-caption">
             <p class="text-white" id="slogan">帶您深入世界的每個角落，體驗在地生活</p>
@@ -33,7 +32,7 @@
     <form action="/tours" method="get">
         <div class="search col-8">
             <div class="input-group col-8 mx-auto p-0">
-                <input type="text" class="text-search form-control" id="search" name="search" data-toggle="dropdown"
+                <input type="text" class="search-text form-control" name="search" data-toggle="dropdown"
                     aria-haspopup="false" aria-expanded="false" autocomplete="off" value="" placeholder="輸入關鍵字...">
                 <span class="input-group-btn">
                     <button class="btn-search btn btn-block" type="button">
@@ -60,7 +59,7 @@
 @section('content')
 
 <div class="caption text-center">
-    <h1>探索全世界</h1>
+    <h1>&nbsp;探索全世界</h1>
 </div>
 
 <div class="popular-spot px-4 mb-4">

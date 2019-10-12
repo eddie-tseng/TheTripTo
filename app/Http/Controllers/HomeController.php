@@ -6,6 +6,11 @@ use App\Entities\Tour;
 
 class HomeController extends Controller
 {
+    /**
+     * Get index page.
+     *
+     * @return View
+     */
     public function index()
     {
         if (session()->has('id')) {
@@ -16,12 +21,16 @@ class HomeController extends Controller
 
         $binding = [
             'tours' => $tours,
-            'title' => "首頁",
         ];
 
         return view('index', $binding);
     }
 
+    /**
+     * Live search for search-bar
+     *
+     * @return JsonResponse
+     */
     public function searchTour()
     {
         $names = array();

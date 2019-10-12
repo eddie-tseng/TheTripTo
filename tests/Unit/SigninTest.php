@@ -17,9 +17,6 @@ class SigninTest extends TestCase
             'photo' => 'img/user/test.jpg'
            ]);
 
-        // $buider = User::query();
-        // $users = $buider->where('id', '>', 0)->get();
-        // $this->assertEquals('some arbitrary value', print_r(session::get('user_id')));
         $this->post('/sign-in', [
             'account' => 'test@mail.com',
             'password' => '88888888',
