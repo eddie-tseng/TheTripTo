@@ -55,7 +55,8 @@ class UserController extends Controller
         $input = array_merge(
             $input,
             [
-                'mail' => $input['account']
+                'mail' => $input['account'],
+                'photo' => "img/site/profile.png"
             ]
         );
 
@@ -118,13 +119,7 @@ class UserController extends Controller
                 ->withInput();
         }
 
-
-        if (is_null($user->photo)) {
-            session()->put('photo', url("img/site/profile.png"));
-        } else {
-            session()->put('photo', url($user->photo));
-        }
-
+        session()->put('photo', url($user->photo));
         session()->put('user_id', $user->id);
 
         return redirect()->intended('/');
@@ -191,6 +186,7 @@ class UserController extends Controller
                 'last_name' => $googleUser->getLastname(),
                 'password' => $password,
                 'google_account' => $google_id,
+                'photo' => "img/site/profile.png"
             ];
             $input['password'] = Hash::make($input['password']);
             $user = User::create($input);

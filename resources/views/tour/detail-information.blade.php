@@ -3,6 +3,11 @@
 @section('title', $title)
 @section('custom-css')
 <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+<style>
+ .datepicker{
+        left: 41% !important;
+    }
+</style>
 @endsection
 
 @section('modal')
