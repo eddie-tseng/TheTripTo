@@ -85,7 +85,7 @@
                                     <p class="pl-4 font-weight-bold">價格 (TWD)</h5>
                                         <div class="row mx-4">
                                         @if (isset($selected_options['price']))
-                                        <p id="price-interval" class="col-12">{{explode(',', $selected_options['price'])[0]}} ~ {{explode(',', $selected_options['price'])[1]}}</p>
+                                        <p id="price-interval" class="col-12 pl-0">{{explode(',', $selected_options['price'])[0]}} ~ {{explode(',', $selected_options['price'])[1]}}</p>
                                         <input
                                             type="text"
                                             id="price-bar"
@@ -98,7 +98,7 @@
                                             data-slider-value="[{{explode(',', $selected_options['price'])[0]}},{{explode(',', $selected_options['price'])[1]}}]"
                                         >
                                         @else
-                                        <p id="price-interval" class="col-12">{{$initial_options['price']['min']}} ~ {{$initial_options['price']['max']}}</p>
+                                        <p id="price-interval" class="col-12 pl-0">{{$initial_options['price']['min']}} ~ {{$initial_options['price']['max']}}</p>
                                         <input
                                             type="text"
                                             id="price-bar"
@@ -246,10 +246,16 @@ if (id == "price") {
 $('.filter').submit();
 });
 //price bar
-$('.s2').on('change', function () {
-    $('#price-interval').text($("#price-bar").val().replace(',', ' ~ '));
-    $('.filter').submit();
-    });
+$('.s2').on({
+    change: function (e) {
+        $('#price-interval').text($("#price-bar").val().replace(',', ' ~ '));
+    },
+    slideStop: function (e) {
+        $('.filter').submit();
+    }
 });
+
+});
+
 </script>
 @endsection

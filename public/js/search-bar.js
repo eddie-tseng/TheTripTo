@@ -6,7 +6,7 @@ $('.search-text').on({
         var flag = e.target.isNeedPrevent;
         if (flag) return;
         value = $(this).val();
-        console.log(value);
+        // console.log(value);
         response();
         e.target.keyEvent = false;
     },
