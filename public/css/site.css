@@ -130,6 +130,7 @@ nav .btn-search img{
     #search-modal .input-group>input {
         width: 20vw;
         height: 30px;
+        border: 1px solid #23293155;
     }
 
     #search-modal .input-group button {
