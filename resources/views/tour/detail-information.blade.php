@@ -177,8 +177,8 @@ $('.date').datepicker({
     }
     $('#order').on('click', function (event){
         if (userId === 0) {
+            $('#order-modal').modal('hide');
             $('#account-modal').modal('show');
-            $('#order-modal').toggle();
         }
         else{
             $('#order-modal form').submit();

@@ -150,7 +150,7 @@ class UserController extends Controller
         }
 
         if (request()->error == 'access_denied') {
-            throw new Exception('授權失敗，存取錯誤');
+            throw new Exception('存取錯誤');
         }
 
         try {
@@ -159,37 +159,36 @@ class UserController extends Controller
             return redirect()->route('/');
         }
 
-        $google_email = $googleUser->getEmail();
-
-        if (is_null($google_email)) {
-            throw new Exception('未授權取得使用者 Email');
-        }
-
         $google_id = $googleUser->getId();
+        $google_email = $googleUser->getEmail();
+        $google_firstname = $googleUser->getFirstname();
+        $google_lastname = $googleUser->getLastname();
 
-        $user = User::where('google_account', $google_id)->first();
-
-        if (is_null($user)) {
-            $user = User::where('mail', $google_email)->first();
-            if (!is_null($user)) {
-                $user->google_account = $google_id;
-                $user->save();
-            }
+        if (is_null($google_id) || is_null($google_email) || is_null($google_firstname) || is_null($google_lastname)) {
+            throw new Exception('未取得使用者資料');
         }
 
-        if (is_null($user)) {
-            $password = substr(uniqid(), 0, 8);
-            $input = [
-                'account' => $google_email,
-                'mail' => $google_email,
-                'first_name' => $googleUser->getFirstname(),
-                'last_name' => $googleUser->getLastname(),
-                'password' => $password,
-                'google_account' => $google_id,
-                'photo' => "img/site/profile.png"
-            ];
-            $input['password'] = Hash::make($input['password']);
-            $user = User::create($input);
+        $google_account = User::where('google_account', $google_id)->first();
+
+        if (is_null($google_account)) {
+            $account = User::where('account', $google_email)->first();
+            if (!is_null($account)) {
+                $account->google_account = $google_id;
+                $account->save();
+            } else {
+                $password = substr(uniqid(), 0, 8);
+                $input = [
+                    'account' => $google_email,
+                    'mail' => $google_email,
+                    'first_name' => $google_firstname,
+                    'last_name' => $google_lastname,
+                    'password' => $password,
+                    'google_account' => $google_id,
+                    'photo' => "img/site/profile.png"
+                ];
+                $input['password'] = Hash::make($input['password']);
+                $user = User::create($input);
+            }
         }
 
         session()->put('user_id', $user->id);
