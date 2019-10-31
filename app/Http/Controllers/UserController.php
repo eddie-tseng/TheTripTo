@@ -168,13 +168,12 @@ class UserController extends Controller
             throw new Exception('未取得使用者資料');
         }
 
-        $google_account = User::where('google_account', $google_id)->first();
+        $user = User::where('google_account', $google_id)->first();
 
-        if (is_null($google_account)) {
-            $account = User::where('account', $google_email)->first();
-            if (!is_null($account)) {
-                $account->google_account = $google_id;
-                $account->save();
+        if (is_null($user)) {
+            if (!is_null($user->google_account)) {
+                $user->google_account = $google_id;
+                $user->save();
             } else {
                 $password = substr(uniqid(), 0, 8);
                 $input = [
@@ -279,7 +278,7 @@ class UserController extends Controller
             $file_name = uniqid() . '.' . $file_extension;
             $file_relative_path = 'img/user/' . $file_name;
             $file_path = public_path($file_relative_path);
-            $image = Image::make($photo)->fit(150, 150)->save($file_path);
+            Image::make($photo)->fit(150, 150)->save($file_path);
             $input['photo'] = $file_relative_path;
         }
 

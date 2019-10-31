@@ -130,11 +130,9 @@ class TransactionController extends Controller
             'rating' => 'required|max:5|min:1',
         ];
 
-        // 驗證資料
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
-            // 資料驗證錯誤
             return redirect('/orders/' . $order_id . '/comment')
                 ->withErrors($validator)
                 ->withInput();
