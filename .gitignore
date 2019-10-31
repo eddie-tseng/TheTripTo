@@ -11,3 +11,4 @@ npm-debug.log
 yarn-error.log
 /public/img/tour
 /public/img/user
+/.vscode
