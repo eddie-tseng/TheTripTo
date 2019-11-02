@@ -33,14 +33,16 @@ php artisan migrate --seed
 
 ### 設定google api
 
-打開.env，設定參數 
+打開.env，設定參數
+
+```
 // ...
 GOOGLE_CLIENT_ID
 GOOGLE_CLIENT_SECRET
 GOOGLE_REDIRECT
 GOOGLE_MAP_KEY
 // ...
-
+```
 
 ### 修改 Socialite 套件
 
