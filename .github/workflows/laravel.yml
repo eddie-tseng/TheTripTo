@@ -11,6 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
