@@ -26,7 +26,7 @@
     },
     "dependencies": {
         "@ng-bootstrap/ng-bootstrap": "^5.1.2",
-        "acorn": "^6.3.0",
+        "acorn": "^6.4.1",
         "ajv": "^6.10.2",
         "bootstrap-maxlength": "^1.6.0",
         "bootstrap-slider": "^10.6.2",
