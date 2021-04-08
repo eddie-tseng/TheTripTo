@@ -1,0 +1,31 @@
+name: Laravel
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  laravel-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+          env_file: ".env"
+        env:
+          APP_NAME: ${{secrets.APP_NAME}}
+          APP_ENV: ${{secrets.APP_ENV}}
+          APP_KEY: ${{secrets.APP_KEY}}
+          APP_DEBUG: ${{secrets.APP_DEBUG}}
+          APP_URL: ${{secrets.APP_URL}}
+          LOG_CHANNEL: ${{secrets.LOG_CHANNEL}}
+          DB_CONNECTION: ${{secrets.DB_CONNECTION}}
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
+          DB_HOST: ${{secrets.DB_HOST}}
+          DB_PORT: ${{secrets.DB_PORT}}
+          DB_DATABASE: ${{secrets.DB_DATABASE}}
+          DB_USERNAME: ${{secrets.DB_USERNAME}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
