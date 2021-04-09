@@ -36,13 +36,13 @@ $factory->define(Tour::class, function (Faker $faker) {
                 '',
                 $title);
 
-    $image = $faker->image('public/img/tour',1024,576,'city',false);
+//    $image = $faker->image('public/img/tour',1024,576,'city',false);
 
     $sets = ['經典行程', '優惠行程', '超值行程', '在地人推薦行程', '深度體驗行程'];
 
     $data = [
         'status' => 'r',
-        'photo' => 'img/tour/'.$image,
+        'photo' => 'img/site/ig.png',
         'introduction' => $faker->realText($faker->numberBetween(300,500)),
         'sub_title' => $faker->randomElement($sets),
         'price' => $faker->numberBetween(1000, 5000),
