@@ -1,5 +1,7 @@
 ### laravel side project "The Trip To [  ]"
 demo: https://the-trip-to.herokuapp.com/
+test account: jaime.cassin@example.org
+password: 88888888
 
 ## 安装
 
